@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuChangement : MonoBehaviour
 {
@@ -58,5 +59,11 @@ public class MenuChangement : MonoBehaviour
     {
         Application.Quit();
         // Debug.Log("Quit");
+    }
+
+    public void MenuBut()
+    {
+        SceneManager.LoadScene("Menu");
+        Debug.Log("Chargement menu");
     }
 }
