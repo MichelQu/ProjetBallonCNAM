@@ -32,6 +32,7 @@ public class MenuChangement : MonoBehaviour
 
     void Resume()
     {
+        Cursor.visible = false;
         pauseMenuUI.SetActive(false);
         resumeMenuUI.SetActive(true);
         Time.timeScale = 1f;
@@ -40,6 +41,7 @@ public class MenuChangement : MonoBehaviour
 
     void Pause()
     {
+        Cursor.visible = true;
         pauseMenuUI.SetActive(true);
         resumeMenuUI.SetActive(false);
         Time.timeScale = 0f;

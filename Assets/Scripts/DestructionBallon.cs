@@ -23,7 +23,7 @@ public class DestructionBallon : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
         // debug Ray
-        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
+        // Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red);
 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -33,7 +33,7 @@ public class DestructionBallon : MonoBehaviour
                 if (hit.transform.tag == "Ballon")
                 {
                     Destroy(hit.transform.gameObject);
-                    Debug.Log("Destruction d'un ballon");
+                    // Debug.Log("Destruction d'un ballon");
                     score += 1;
 
                     zoneText.text = "Votre Score est de : " + score;

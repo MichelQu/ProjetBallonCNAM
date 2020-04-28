@@ -7,23 +7,20 @@ public class CameraMouvement : MonoBehaviour
 {
 	private float rotationX;
 	private float rotationY;
-	public float sensitivity = 3.0f;
-
-	// public GameObject canvas;
-
-	private void Start()
-	{
-		
-	}
+	public float sensitivity = 2f;
 
 	private void Update()
 	{
-		rotationX -= Input.GetAxis("Mouse Y") * sensitivity;
-		rotationY += Input.GetAxis("Mouse X") * sensitivity;
+        if (!Cursor.visible)
+        {
+            rotationX -= Input.GetAxis("Mouse Y") * sensitivity;
+		    rotationY += Input.GetAxis("Mouse X") * sensitivity;
 
-		rotationX = Mathf.Clamp(rotationX, -90, 30);
+		    rotationX = Mathf.Clamp(rotationX, -90, 30);
 
-		transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+		    transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+        }
+
 	}
 
 }
