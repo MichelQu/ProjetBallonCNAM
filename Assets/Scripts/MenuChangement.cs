@@ -8,6 +8,11 @@ public class MenuChangement : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
+    private void Start()
+    {
+        Resume();
+    }
+
     // Update is called once per frame
     void Update()
     {
