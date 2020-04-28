@@ -28,7 +28,7 @@ public class DestructionBallon : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 if (hit.transform.tag == "Ballon")
                 {
@@ -40,13 +40,12 @@ public class DestructionBallon : MonoBehaviour
                     }
                     if (hit.transform.gameObject.name == "BallonDore(Clone)")
                     {
-                        score += 5;
+                        score += 3;
                     }
 
                     zoneText.text = "Votre Score est de : " + score;
                 }
             }
         }
-
     }
 }
