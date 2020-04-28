@@ -34,7 +34,14 @@ public class DestructionBallon : MonoBehaviour
                 {
                     Destroy(hit.transform.gameObject);
                     // Debug.Log("Destruction d'un ballon");
-                    score += 1;
+                    if (hit.transform.gameObject.name == "BallonRouge(Clone)")
+                    {
+                        score += 1;
+                    }
+                    if (hit.transform.gameObject.name == "BallonDore(Clone)")
+                    {
+                        score += 5;
+                    }
 
                     zoneText.text = "Votre Score est de : " + score;
                 }

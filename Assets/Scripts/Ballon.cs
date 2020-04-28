@@ -19,13 +19,29 @@ public class Ballon : MonoBehaviour
 
     private void elevationBallon()
     {
-        if (transform.position.y <= 25)
+        if (this.gameObject.name == "BallonRouge(Clone)")
         {
-            transform.Translate(transform.up * speed * Time.deltaTime);
+            if (transform.position.y <= 25)
+            {
+                transform.Translate(transform.up * speed * Time.deltaTime);
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
-        else
+
+        if (this.gameObject.name == "BallonDore(Clone)")
         {
-            Destroy(this.gameObject);
+            if (transform.position.y <= 25)
+            {
+                transform.Translate(transform.up * 2 * speed * Time.deltaTime);
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
+
     }
 }
