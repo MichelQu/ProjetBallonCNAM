@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DestructionBallon : MonoBehaviour
 {
     Camera cam;
     public int score;
+    public int ballons;
 
-    public Text zoneText;
+    public Text zoneText1;
+    public Text zoneText2;
 
     void Start()
     {
         cam = GetComponent<Camera>();
         score = 0;
-        zoneText.text = "Votre Score est de : " + score;
+        ballons = 0;
+        zoneText1.text = "Score : " + score;
+        zoneText2.text = "Ballons détruits : " + ballons;
     }
 
     // Update is called once per frame
@@ -36,16 +41,29 @@ public class DestructionBallon : MonoBehaviour
                     // Debug.Log("Destruction d'un ballon");
                     if (hit.transform.gameObject.name == "BallonRouge(Clone)")
                     {
+                        ballons += 1;
                         score += 1;
                     }
                     if (hit.transform.gameObject.name == "BallonDore(Clone)")
                     {
+                        ballons += 1;
                         score += 3;
                     }
 
-                    zoneText.text = "Votre Score est de : " + score;
+                    zoneText1.text = "Score : " + score;
+                    zoneText2.text = "Ballons détruits : " + ballons;
                 }
             }
         }
+
+
+        if (PlayerPrefs.GetInt("Ballons") == ballons)
+        {
+            Debug.Log("Vous avez réussi le niveau");
+            SceneManager.LoadScene("Transition");
+        }
     }
+
+
+
 }

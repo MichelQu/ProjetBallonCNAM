@@ -7,7 +7,7 @@ public class MenuP : MonoBehaviour
 {
     public void PlayBut()
     {
-        SceneManager.LoadScene("SceneP");
+        SceneManager.LoadScene("Niveaux");
         Debug.Log("Play");
     }
 
