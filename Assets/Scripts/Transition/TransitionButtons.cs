@@ -30,4 +30,9 @@ public class TransitionButtons : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void PlaySaveBut()
+    {
+        SceneManager.LoadScene("Enregistrement");
+    }
 }

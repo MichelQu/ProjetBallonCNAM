@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class CreationBallon : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class CreationBallon : MonoBehaviour
     {
         tempsEcoule1 = 0f;
         tempsEcoule2 = 0f;
+
+        string path = Application.dataPath + "/Texte/dataBallon.txt";
+        File.WriteAllText(path,"");
     }
 
     // Update is called once per frame
@@ -37,6 +41,9 @@ public class CreationBallon : MonoBehaviour
 
             // On réinitialise le temps
             tempsEcoule1 = 0f;
+
+            // On enregistre le lieu du ballon
+            Save("rouge", coord);
         }
 
         // Si le temps incrémenté atteint le seuil alors on crée un nouveau ballon2
@@ -53,7 +60,29 @@ public class CreationBallon : MonoBehaviour
 
             // On réinitialise le temps
             tempsEcoule2 = 0f;
+
+            // On enregistre le lieu du ballon
+            Save("or", coord);
         }
 
     }
+
+
+    private void Save(string nom, Vector3 coord)
+    {
+        string path = Application.dataPath + "/Texte/dataBallon.txt";
+        string saveSeparator = "%";
+
+        string[] content =
+        {
+            nom,
+            coord.ToString("F4")
+        };
+
+        // On en fait un seul string
+        string saveString = string.Join(saveSeparator, content);
+        // On l'ajoute au fichier texte
+        File.AppendAllText(path, saveString + "%");
+    }
+
 }
