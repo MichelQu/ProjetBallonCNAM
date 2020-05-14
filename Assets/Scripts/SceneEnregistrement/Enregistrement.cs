@@ -23,7 +23,7 @@ public class Enregistrement : MonoBehaviour
     private float temps;
     private int nbr;
     private int tampon;
-    private float echanti = 0.01f;
+    private float echanti = 0.001f;
     private float tempsEcoule1;
     private float tempsEcoule2;
     private int nbrR;
@@ -66,7 +66,7 @@ public class Enregistrement : MonoBehaviour
             if (temps > echanti)
             {
                 // Debug.Log("En cours");
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, PointPos[tampon], 2f);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, PointPos[tampon], 1f);
                 tampon += 1;
                 temps = 0f;
             }
@@ -100,7 +100,7 @@ public class Enregistrement : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt("FinEnregistrement", 1);
-            Debug.Log("Fin");
+            // Debug.Log("Fin");
         }
     }
 
@@ -113,7 +113,7 @@ public class Enregistrement : MonoBehaviour
         ListBallonD.Clear();
         Vector3 pos;
         // Les variables
-        string path = Application.dataPath + "/Texte/dataBallon.txt";
+        string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
 
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
@@ -142,7 +142,7 @@ public class Enregistrement : MonoBehaviour
             }
         }
 
-        Debug.Log("Chargement effectué des ballons");
+        // Debug.Log("Chargement effectué des ballons");
     }
 
     void LoadDataBrut()
@@ -181,6 +181,6 @@ public class Enregistrement : MonoBehaviour
         // string path2 = Application.dataPath + "/Texte/data.txt";
         // File.WriteAllText(path2, readText);
 
-        Debug.Log("Chargement effectué des rotations");
+        // Debug.Log("Chargement effectué des rotations");
     }
 }

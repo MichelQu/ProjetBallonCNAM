@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,10 @@ public class DestructionBallon : MonoBehaviour
         ballons = 0;
         zoneText1.text = "Score : " + score;
         zoneText2.text = "Ballons détruits : " + ballons;
+
+        // Initialisation texte
+        string path = Application.dataPath + "/Texte/dataBallonDestruction.txt";
+        File.WriteAllText(path, "");
     }
 
     // Update is called once per frame
@@ -37,8 +42,15 @@ public class DestructionBallon : MonoBehaviour
             {
                 if (hit.transform.tag == "Ballon")
                 {
-                    Destroy(hit.transform.gameObject);
+                    AudioClip son = hit.transform.gameObject.GetComponent<AudioSource>().clip;
+                    hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(son, 0.5f);
+
+                    // Destroy(hit.transform.gameObject);
                     // Debug.Log("Destruction d'un ballon");
+
+                    hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                    savedate();
+
                     if (hit.transform.gameObject.name == "BallonRouge(Clone)")
                     {
                         ballons += 1;
@@ -65,5 +77,14 @@ public class DestructionBallon : MonoBehaviour
     }
 
 
+    void savedate()
+    {
+        string path = Application.dataPath + "/Texte/dataBallonDestruction.txt";
+        string temps = cam.GetComponent<Initialisation>().temps.ToString("G");
+        
+        File.AppendAllText(path, temps + "%");
+        // Enregistrement Destruction
+        Debug.Log("Destruction");
+    }
 
 }

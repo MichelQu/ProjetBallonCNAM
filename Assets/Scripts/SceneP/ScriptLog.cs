@@ -11,7 +11,7 @@ public class ScriptLog : MonoBehaviour
 
     private float temps;
     private bool saving;
-    private float echanti = 0.01f;
+    private float echanti = 0.001f;
 
     private string saveSeparator = "%";
 
@@ -42,7 +42,7 @@ public class ScriptLog : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             SceneManager.LoadScene("Enregistrement");
-            Debug.Log("Début de l'enregistrement");
+            // Debug.Log("Début de l'enregistrement");
         }
 
     }
@@ -54,7 +54,7 @@ public class ScriptLog : MonoBehaviour
 
         string[] content =
         {
-            Regard.ToString("F4")
+            Regard.ToString("G")
         };
 
         string saveString = string.Join(saveSeparator, content) + System.Environment.NewLine;
@@ -70,7 +70,7 @@ public class ScriptLog : MonoBehaviour
             File.AppendAllText(path, saveString);
         }
 
-        Debug.Log("Sauvegarde effectuée");
+        // Debug.Log("Sauvegarde effectuée");
     }
 
 }

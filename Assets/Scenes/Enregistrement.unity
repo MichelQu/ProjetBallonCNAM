@@ -1296,7 +1296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 182.7, y: -137}
+  m_AnchoredPosition: {x: -0.000015259, y: -141}
   m_SizeDelta: {x: 624.4, y: 78.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1399837887
@@ -2018,6 +2018,7 @@ GameObject:
   - component: {fileID: 2061191269}
   - component: {fileID: 2061191272}
   - component: {fileID: 2061191273}
+  - component: {fileID: 2061191274}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2121,3 +2122,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectif: {fileID: 1076410578}
   Timer: {fileID: 1653000363}
+  temps: 0
+--- !u!114 &2061191274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061191268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6afeb1b7db1484681be46aeb6e88664f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  ballons: 0
+  textScore: {fileID: 514835120}
+  textBallon: {fileID: 281721077}

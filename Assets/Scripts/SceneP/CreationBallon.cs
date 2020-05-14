@@ -16,7 +16,7 @@ public class CreationBallon : MonoBehaviour
         tempsEcoule1 = 0f;
         tempsEcoule2 = 0f;
 
-        string path = Application.dataPath + "/Texte/dataBallon.txt";
+        string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
         File.WriteAllText(path,"");
     }
 
@@ -70,7 +70,7 @@ public class CreationBallon : MonoBehaviour
 
     private void Save(string nom, Vector3 coord)
     {
-        string path = Application.dataPath + "/Texte/dataBallon.txt";
+        string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
         string saveSeparator = "%";
 
         string[] content =

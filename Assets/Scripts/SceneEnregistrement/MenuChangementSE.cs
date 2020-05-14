@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class MenuChangementSE : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class MenuChangementSE : MonoBehaviour
 
     void Resume()
     {
-        Cursor.visible = false;
+        Cursor.visible = true;
         pauseMenuUI.SetActive(false);
         resumeMenuUI.SetActive(true);
         Time.timeScale = 1f;
@@ -58,10 +59,8 @@ public class MenuChangementSE : MonoBehaviour
 
     public void RetryBut()
     {
-        // TODO
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Resume();
-        Debug.Log("Retry");
+        SceneManager.LoadScene(4);
+        // Debug.Log("Retry");
     }
 
     public void MenuBut()
@@ -77,7 +76,19 @@ public class MenuChangementSE : MonoBehaviour
 
     public void SaveBut()
     {
-        // TODO
+        PlayerPrefs.SetInt("NuméroSave", PlayerPrefs.GetInt("NuméroSave") + 1);
+        string path1 = Application.dataPath + "/Texte/profond/DataBrut" + PlayerPrefs.GetInt("NuméroSave") + ".txt";
+        string readText = File.ReadAllText(Application.dataPath + "/Texte/dataBrut.txt");
+        File.WriteAllText(path1, readText);
+
+        string path2 = Application.dataPath + "/Texte/profond/DataBallonCreation" + PlayerPrefs.GetInt("NuméroSave") + ".txt";
+        string readText2 = File.ReadAllText(Application.dataPath + "/Texte/dataBallonCreation.txt");
+        File.WriteAllText(path2, readText2);
+
+        string path3 = Application.dataPath + "/Texte/profond/DataBallonDestruction" + PlayerPrefs.GetInt("NuméroSave") + ".txt";
+        string readText3 = File.ReadAllText(Application.dataPath + "/Texte/dataBallonDestruction.txt");
+        File.WriteAllText(path3, readText3);
+
         Debug.Log("SauvegardeProfonde");
     }
 }

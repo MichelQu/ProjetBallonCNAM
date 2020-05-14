@@ -8,7 +8,7 @@ public class Initialisation : MonoBehaviour
 
     public Text zoneText;
     public Text Timer;
-    private float temps;
+    public float temps;
     private float tempsInt;
 
     // Start is called before the first frame update
