@@ -16,16 +16,17 @@ public class Enregistrement : MonoBehaviour
 
     // Les listes des objets 
     private List<Quaternion> PointPos;
-    public List<Vector3> ListBallonR;
-    public List<Vector3> ListBallonD;
+    // private List<Vector3> PointPos;
+
+    private List<Vector3> ListBallonR;
+    private List<Vector3> ListBallonD;
+    private List<float> ListTempsR;
+    private List<float> ListTempsD;
 
     // Les variables du scripts
-    private float temps;
     private int nbr;
     private int tampon;
     private float echanti = 0.001f;
-    private float tempsEcoule1;
-    private float tempsEcoule2;
     private int nbrR;
     private int nbrD;
     #endregion
@@ -38,72 +39,106 @@ public class Enregistrement : MonoBehaviour
         // On initialise les variables pour le tableau
         nbr = 0;
         tampon = 0;
-        tempsEcoule1 = 0;
-        tempsEcoule2 = 0;
         nbrR = 0;
         nbrD = 0;
         // On initialise la liste des quaternions et les listes de ballons
         PointPos = new List<Quaternion>();
+        // PointPos = new List<Vector3>();
         ListBallonR = new List<Vector3>();
         ListBallonD = new List<Vector3>();
+        ListTempsR = new List<float>();
+        ListTempsD = new List<float>();
 
         // On récupère toutes les infos des coordonnées qu'on a enregistré
         LoadDataBrut();
         LoadDataBallon();
+        // LoadDataCamera();
     }
 
     // Update is called once per frame
     void Update()
     {
         // On incrémente le temps
-        tempsEcoule1 += Time.deltaTime;
-        tempsEcoule2 += Time.deltaTime;
-        temps += Time.deltaTime;
+        float temps = this.GetComponent<InitialisationSE>().temps;
 
         // On vérifie qu'il y a un truc dans l'enregistrement
         if (tampon < nbr)
         {
-            if (temps > echanti)
+            // On réalise la rotation
+            if ((temps - tampon*echanti) > echanti)
             {
                 // Debug.Log("En cours");
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, PointPos[tampon], 1f);
+                // TODO la rapidité est à changer car il dépend du temps (autour des 1.2f à 1.3f)
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, PointPos[tampon], 1.25f);
+
+                // Quaternion rotation1 = Quaternion.LookRotation(PointPos[tampon], Vector3.up);
+                // transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation1, 1f);
+
                 tampon += 1;
-                temps = 0f;
             }
-            // On ajoute les ballons
-            if (tempsEcoule1 >= 1)
+
+            // On ajoute les ballons Rouges et Dorés selon le temps
+            if (Mathf.Abs(temps - ListTempsR[nbrR]) < 0.01f )
             {
                 if (nbrR < ListBallonR.Count)
                 {
-                    // Debug.Log("BallonR");
+                    Debug.Log("BallonR");
                     Vector3 coord = ListBallonR[nbrR];
                     nbrR += 1;
                     Instantiate(ballon1, coord, Quaternion.identity);
-                    // On réinitialise le temps
-                    tempsEcoule1 = 0f;
                 }
             }
 
-            if (tempsEcoule2 >= 5)
+            if (Mathf.Abs(temps - ListTempsD[nbrD]) < 0.01f)
             {
                 if (nbrD < ListBallonD.Count)
                 {
-                    // Debug.Log("BallonD");
+                    Debug.Log("BallonD");
                     Vector3 coord = ListBallonR[nbrD];
                     nbrD += 1;
                     Instantiate(ballon2, coord, Quaternion.identity);
-                    // On réinitialise le temps
-                    tempsEcoule2 = 0f;
                 }
             }
         }
         else
         {
+            // Variable Environnement qui annonce la fin de l'enregistrement
             PlayerPrefs.SetInt("FinEnregistrement", 1);
             // Debug.Log("Fin");
         }
     }
 
+    //void LoadDataCamera()
+    //{
+    //    // Initialisation
+    //    string[] textArray;
+    //    ListPosition.Clear();
+    //    Vector3 pos;
+    //    // Les variables
+    //    string path = Application.dataPath + "/Texte/dataBrutCamera.txt";
+
+    //    // On récupère le fichier texte
+    //    string readText = File.ReadAllText(path);
+    //    // On le transforme un peu
+    //    readText = readText.Replace("(", "");
+    //    readText = readText.Replace(")", "");
+    //    readText = readText.Replace(", ", "%");
+    //    readText = readText.Replace(System.Environment.NewLine, "%");
+
+    //    // string path2 = Application.dataPath + "/Texte/dataBrutCamera2.txt";
+    //    // File.WriteAllText(path2, readText);
+
+    //    // On le mets dans un liste
+    //    textArray = readText.Split(new[] { "%" }, System.StringSplitOptions.None);
+
+    //    Debug.Log("Longueur : " + textArray.Length);
+    //    for (int i = 0; i < (textArray.Length / 4); i++)
+    //    {
+            
+    //    }
+
+    //    // Debug.Log("Chargement effectué des ballons");
+    //}
 
     void LoadDataBallon()
     {
@@ -111,33 +146,39 @@ public class Enregistrement : MonoBehaviour
         string[] textArray;
         ListBallonR.Clear();
         ListBallonD.Clear();
-        Vector3 pos;
+        ListTempsR.Clear();
+        ListTempsD.Clear();
         // Les variables
         string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
 
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
         // On le transforme un peu
+        readText = readText.Replace("Date de création des ballons dans le jeu, leurs coordonnées et spécificités :", "");
         readText = readText.Replace("(", "");
         readText = readText.Replace(")", "");
         readText = readText.Replace(", ", "%");
+        readText = readText.Replace("#", "");
+        readText = readText.Replace(System.Environment.NewLine, "");
 
-        // string path2 = Application.dataPath + "/Texte/dataBallon2.txt";
-        // File.WriteAllText(path2, readText);
+        string path2 = Application.dataPath + "/Texte/dataBallon2.txt";
+        File.WriteAllText(path2, readText);
 
         // On le mets dans un liste
         textArray = readText.Split(new[] { "%" }, System.StringSplitOptions.None);
 
-        for (int i=0; i < (textArray.Length/4); i++)
+        for (int i=0; i < (textArray.Length/5); i++)
         {
-            if (textArray[4*i] == "rouge")
+            if (textArray[5*i+1] == "rouge")
             {
-                pos = new Vector3( float.Parse(textArray[i * 4 + 1], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 2], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 3], CultureInfo.InvariantCulture));
+                ListTempsR.Add(float.Parse(textArray[5 * i], CultureInfo.InvariantCulture));
+                Vector3 pos = new Vector3(float.Parse(textArray[5 * i + 2], CultureInfo.InvariantCulture), float.Parse(textArray[5 * i + 3], CultureInfo.InvariantCulture), float.Parse(textArray[5 * i + 4], CultureInfo.InvariantCulture));
                 ListBallonR.Add(pos);
             }
-            if (textArray[4 * i] == "or")
+            if (textArray[5*i+1] == "or")
             {
-                pos = new Vector3(float.Parse(textArray[i * 4 + 1], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 2], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 3], CultureInfo.InvariantCulture));
+                ListTempsD.Add(float.Parse(textArray[5 * i], CultureInfo.InvariantCulture));
+                Vector3 pos = new Vector3(float.Parse(textArray[5 * i + 2], CultureInfo.InvariantCulture), float.Parse(textArray[5 * i + 3], CultureInfo.InvariantCulture), float.Parse(textArray[5 * i + 4], CultureInfo.InvariantCulture));
                 ListBallonD.Add(pos);
             }
         }
@@ -158,11 +199,12 @@ public class Enregistrement : MonoBehaviour
         string readText = File.ReadAllText(path);
 
         // On traite les information du fichier texte 
-        readText = readText.Replace("Résultat expérience" + System.Environment.NewLine, "");
+        readText = readText.Replace("Résultat expérience Orientation de la caméra (Quaternion)" + System.Environment.NewLine, "");
         readText = readText.Replace("(", "");
         readText = readText.Replace(")", " ");
         readText = readText.Replace(System.Environment.NewLine, "");
         readText = readText.Replace(",", "");
+        readText = readText.Replace("%", " ");
 
         //// On crée une liste grâce au fichier texte, chaque case de la liste est déterminé par les espaces dans le fichier texte
         textArray = readText.Split(new[] { " " }, System.StringSplitOptions.None);
@@ -170,15 +212,16 @@ public class Enregistrement : MonoBehaviour
         // Debug.Log("Longueur : " + textArray.Length);
         // Debug.Log("Longueur/3 : " + textArray.Length/3);
 
-        //// On remplit la liste des vecteurs
-        for (int i = 0; i < (textArray.Length / 4); i++)
+        // On remplit la liste des vecteurs
+        for (int i = 0; i < (textArray.Length / 5); i++)
         {
-            Quaternion kwa = new Quaternion(float.Parse(textArray[i * 4], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 1], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 2], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 3], CultureInfo.InvariantCulture));
-            // Vector3 kwa = new Vector3(float.Parse(textArray[i*3], CultureInfo.InvariantCulture), float.Parse(textArray[i*3+1], CultureInfo.InvariantCulture), float.Parse(textArray[i*3+2], CultureInfo.InvariantCulture));
+            Quaternion kwa = new Quaternion(float.Parse(textArray[i*5+1], CultureInfo.InvariantCulture), float.Parse(textArray[i * 5 + 2], CultureInfo.InvariantCulture), float.Parse(textArray[i * 5 + 3], CultureInfo.InvariantCulture), float.Parse(textArray[i * 5 + 4], CultureInfo.InvariantCulture));
+            // Vector3 kwa = new Vector3(float.Parse(textArray[i*4+1], CultureInfo.InvariantCulture), float.Parse(textArray[i*4+2], CultureInfo.InvariantCulture), float.Parse(textArray[i*4+3], CultureInfo.InvariantCulture));
             PointPos.Add(kwa);
             nbr += 1;
         }
-        // string path2 = Application.dataPath + "/Texte/data.txt";
+
+        // string path2 = Application.dataPath + "/Texte/dataExpe.txt";
         // File.WriteAllText(path2, readText);
 
         // Debug.Log("Chargement effectué des rotations");

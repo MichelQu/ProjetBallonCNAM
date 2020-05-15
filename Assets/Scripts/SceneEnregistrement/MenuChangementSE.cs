@@ -89,6 +89,10 @@ public class MenuChangementSE : MonoBehaviour
         string readText3 = File.ReadAllText(Application.dataPath + "/Texte/dataBallonDestruction.txt");
         File.WriteAllText(path3, readText3);
 
+        string path4 = Application.dataPath + "/Texte/profond/DataBrutCamera" + PlayerPrefs.GetInt("NuméroSave") + ".txt";
+        string readText4 = File.ReadAllText(Application.dataPath + "/Texte/dataBrutCamera.txt");
+        File.WriteAllText(path4, readText4);
+
         Debug.Log("SauvegardeProfonde");
     }
 }

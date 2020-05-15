@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ballon : MonoBehaviour
 {
-    public float speed = 2.0f;
+    public float speed = 1.0f;
 
     // Update is called once per frame
     void Update()

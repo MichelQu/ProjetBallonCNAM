@@ -24,7 +24,7 @@ public class DestructionBallon : MonoBehaviour
 
         // Initialisation texte
         string path = Application.dataPath + "/Texte/dataBallonDestruction.txt";
-        File.WriteAllText(path, "");
+        File.WriteAllText(path, "Liste regroupant le temps, le nom et la position du ballon détruit" + System.Environment.NewLine);
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class DestructionBallon : MonoBehaviour
                     // Debug.Log("Destruction d'un ballon");
 
                     hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
-                    savedate();
+                    savedate(hit);
 
                     if (hit.transform.gameObject.name == "BallonRouge(Clone)")
                     {
@@ -77,12 +77,25 @@ public class DestructionBallon : MonoBehaviour
     }
 
 
-    void savedate()
+    void savedate(RaycastHit hit)
     {
         string path = Application.dataPath + "/Texte/dataBallonDestruction.txt";
-        string temps = cam.GetComponent<Initialisation>().temps.ToString("G");
-        
-        File.AppendAllText(path, temps + "%");
+
+        string temps = "#" + cam.GetComponent<Initialisation>().temps.ToString("G");
+        string pos = hit.transform.position.ToString("G");
+        string nom = hit.transform.gameObject.name;
+
+        string[] content =
+        {
+            temps,
+            nom,
+            pos
+        };
+
+        string saveString = string.Join("%", content) + System.Environment.NewLine;
+
+        File.AppendAllText(path, saveString);
+
         // Enregistrement Destruction
         Debug.Log("Destruction");
     }

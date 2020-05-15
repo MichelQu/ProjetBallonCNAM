@@ -19,9 +19,14 @@ public class ScriptLog : MonoBehaviour
     void Start()
     {
         saving = false;
-        string saveString = "Résultat expérience" + System.Environment.NewLine;
+        // Data Orientation caméra
+        string saveString = "Résultat expérience Orientation de la caméra (Quaternion)" + System.Environment.NewLine;
         string path = Application.dataPath + "/Texte/dataBrut.txt";
         File.WriteAllText(path, saveString);
+
+        // Data Direction Caméra
+        path = Application.dataPath + "/Texte/dataBrutCamera.txt";
+        File.WriteAllText(path, "");
     }
 
     // Update is called once per frame
@@ -35,7 +40,8 @@ public class ScriptLog : MonoBehaviour
         temps += Time.deltaTime;
         if (temps > echanti) //&& saving)
         {
-            Save();
+            SaveData();
+            SaveCamera();
             temps = 0f;
         }
 
@@ -47,13 +53,19 @@ public class ScriptLog : MonoBehaviour
 
     }
 
-    void Save()
+    void SaveData()
     {
         var Regard = this.transform.rotation;
+        // var Regard = this.transform.forward;
+
         string path = Application.dataPath + "/Texte/dataBrut.txt";
+
+        float timer1 = this.GetComponent<Initialisation>().temps; // Le temps dans le jeu
+        string timer2 = "#" + timer1.ToString();
 
         string[] content =
         {
+            timer2,
             Regard.ToString("G")
         };
 
@@ -71,6 +83,21 @@ public class ScriptLog : MonoBehaviour
         }
 
         // Debug.Log("Sauvegarde effectuée");
+    }
+
+    void SaveCamera()
+    {
+        var Regard = this.transform.forward*30 + transform.position;
+        string path = Application.dataPath + "/Texte/dataBrutCamera.txt";
+        string[] content =
+        {
+            Regard.ToString("G")
+        };
+
+        string saveString = string.Join(saveSeparator, content) + System.Environment.NewLine;
+        File.AppendAllText(path, saveString);
+
+        // Debug.Log("Sauvegarde Caméra");
     }
 
 }
