@@ -6,32 +6,24 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Globalization;
 
+// Ce script gère la destruction des ballons dans la scène Enregistrement grâce aux données enregistrées
+// dans le fichier texte : dataBallonDestruction.txt et qui sont récupérées dans ce script
+
 public class DestructionBallonSE : MonoBehaviour
 {
     Camera cam;
-    private int score;
-    private int ballons;
-    private int tampon;
+    int score = 0;
+    int ballons= 0;
+    int tampon = 0;
 
     public Text textScore;
     public Text textBallon;
 
-    private List<float> ListTemps;
-    private List<Vector3> ListPos;
-    // private List<string> ListBallon;
-
+    List<float> ListTemps = new List<float>();
+    List<Vector3> ListPos = new List<Vector3>();
 
     void Start()
     {
-        cam = GetComponent<Camera>();
-        // Initialisation des variables
-        score = 0;
-        ballons = 0;
-        tampon = 0;
-        ListTemps = new List<float>();
-        ListPos = new List<Vector3>();
-        // ListBallon = new List<string>();
-
         // Initialisation des UI
         textScore.text = "Score : " + score;
         textBallon.text = "Ballons détruits : " + ballons;
@@ -40,17 +32,17 @@ public class DestructionBallonSE : MonoBehaviour
         LoadDestructionBallon();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // On récupère le temps de la scène Enregistrement
         float temps = cam.GetComponent<InitialisationSE>().temps;
         
-
+        // Si on a encore des ballons à détruire (vérifié avec le test dans le if)
         if (tampon < ListTemps.Count)
         {
+            // Lorsqu'on est arrivé au temps de déstruction d'un ballon
             if ( Mathf.Abs(temps-ListTemps[tampon]) < 0.01f)
             {
-                Debug.Log("Correspondance Temps pour destruction");
                 // On itendifie tous les ballons dans la scène
                 GameObject[] listGO = GameObject.FindGameObjectsWithTag("Ballon");
                 // On lance la fonction pour en détruire un
@@ -59,31 +51,37 @@ public class DestructionBallonSE : MonoBehaviour
                 tampon += 1;
             }
         }
+
+        // Si le score est au-dessus de l'objectif alors on annonce la fin de l'enregistrement
+        if (score >= PlayerPrefs.GetInt("Ballons"))
+        {
+            // Variable Environnement qui annonce la fin de l'enregistrement
+            PlayerPrefs.SetInt("FinEnregistrement", 1);
+        }
     }
 
     void Destruction(GameObject[] listGO)
     {
         // On identifie le ballon qui va être détruit avec sa coordonnée Z
         // TODO et le nom peut être dans un plus large cas
-        // GameObject target;
+        // TODO Différentiation des cas si ballon rouge ou ballon dorée
 
+        // Pour tous les ballons dans la listGO
         foreach (GameObject item in listGO)
         {
-            if ( Mathf.Abs(item.transform.position.z - ListPos[tampon][2]) < 0.01f)
+            // Si la coordonnée Z (la hauteur) du ballon est la même que celle indiquée dans les datas
+            // Alors il s'agit du ballon à détruire
+            if ( Mathf.Abs(item.transform.position.z - ListPos[tampon][2]) < 0.0001f)
             {
-                Debug.Log("Ballon trouvé");
-
-                GameObject cible = item;
-
-                // On a trouvé le ballon a détruire
-                // Différentiation des cas si ballon rouge ou ballon dorée
-
+                GameObject cible = item;    // On a le ballon a détruire
+                
                 // On joue le son de disparition
                 AudioClip son = cible.transform.gameObject.GetComponent<AudioSource>().clip;
                 cible.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(son, 0.5f);
                 // On le fait disparaitre
                 cible.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
 
+                // On incrémente le score en fonction du type de ballon
                 if (cible.name == "BallonRouge(Clone)")
                 {
                     score += 1;
@@ -102,50 +100,20 @@ public class DestructionBallonSE : MonoBehaviour
 
             }
         }
-
-    
-        #region Ancien Code
-        //Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        //RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //    if (hit.transform.tag == "Ballon")
-        //    {
-        //        AudioClip son = hit.transform.gameObject.GetComponent<AudioSource>().clip;
-        //        hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(son, 0.5f);
-
-        //        // Destroy(hit.transform.gameObject);
-        //        // Debug.Log("Destruction d'un ballon");
-
-        //        hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
-
-        //        if (hit.transform.gameObject.name == "BallonRouge(Clone)")
-        //        {
-        //            ballons += 1;
-        //            score += 1;
-        //        }
-        //        if (hit.transform.gameObject.name == "BallonDore(Clone)")
-        //        {
-        //            ballons += 1;
-        //            score += 3;
-        //        }
-
-        //        textScore.text = "Score : " + score;
-        //        textBallon.text = "Ballons détruits : " + ballons;
-        //    }
-        //}
-        #endregion
     }
 
     void LoadDestructionBallon()
     {
+        // On initialise les variables
         string[] textArray;
         ListTemps.Clear();
+        // Le chemi où l'on récupère les données des ballons détruits
         string path = Application.dataPath + "/Texte/dataBallonDestruction.txt";
 
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
-        // On le traite un peu
+
+        // On le traite un peu pour extraire les informations utiles
         readText = readText.Replace("Liste regroupant le temps, le nom et la position du ballon détruit" + System.Environment.NewLine, "");
         readText = readText.Replace("BallonRouge(Clone)%", "");
         readText = readText.Replace("BallonDore(Clone)%", "");
@@ -155,21 +123,16 @@ public class DestructionBallonSE : MonoBehaviour
         readText = readText.Replace(")", "%");
         readText = readText.Replace(System.Environment.NewLine, "");
 
-        File.WriteAllText(Application.dataPath + "/Texte/dataBallonDestruction2.txt", readText);
-
-        // On le mets dans la liste
+        // On le mets dans la liste suivante grâce aux séparateurs ('%')
         textArray = readText.Split(new[] { "%" }, System.StringSplitOptions.None);
-
-        // Debug.Log("Longueur : " + textArray.Length);
 
         for(int i=0; i<textArray.Length/4; i++)
         {
+            // On ajoute le temps de destruction du solo
             ListTemps.Add(float.Parse(textArray[4*i], CultureInfo.InvariantCulture));
-            // ListBallon.Add(textArray[5*i+1]);
+            // On ajoute la position associée à la destruction du ballon
             Vector3 kwa = new Vector3(float.Parse(textArray[i * 4 + 1], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 2], CultureInfo.InvariantCulture), float.Parse(textArray[i * 4 + 3], CultureInfo.InvariantCulture));
             ListPos.Add(kwa);
         }
-
-        // Debug.Log("Chargement Destruction Ballon");
     }
 }

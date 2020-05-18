@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Script gérant l'initialisation des UI : objectif, timer 
+// Et lançant le chrono de la scène Enregistrement
+
 public class InitialisationSE : MonoBehaviour
 {
-
     public Text objectif;
     public Text Timer;
     public float temps;

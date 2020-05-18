@@ -9,81 +9,46 @@ using UnityEngine.SceneManagement;
 public class ScriptLog : MonoBehaviour
 {
 
-    private float temps;
-    private bool saving;
-    private float echanti = 0.001f;
+    private float time = 0;
+    private float echanti = 0.1f;
 
-    private string saveSeparator = "%";
+    string saveSeparator = "%";
+    int i = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        saving = false;
-        // Data Orientation caméra
-        string saveString = "Résultat expérience Orientation de la caméra (Quaternion)" + System.Environment.NewLine;
-        string path = Application.dataPath + "/Texte/dataBrut.txt";
-        File.WriteAllText(path, saveString);
+        time = this.GetComponent<Initialisation>().temps;
 
-        // Data Direction Caméra
-        path = Application.dataPath + "/Texte/dataBrutCamera.txt";
-        File.WriteAllText(path, "");
+        // Initialisation des Data de l'Orientation de la Caméra
+        SaveManager.si.Clear(true);
+        SaveManager.si.SaveTransformRotPos(transform, time);
+
+        // Initialisation des Data de la Direction Caméra
+        string path2 = Application.dataPath + "/Texte/dataBrutCamera.txt";
+        File.WriteAllText(path2, "");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            saving = !saving;
-        }
+        // Récupération du temps
+        time = this.GetComponent<Initialisation>().temps;
 
-        temps += Time.deltaTime;
-        if (temps > echanti) //&& saving)
+        // Si le temps est supérieur à la fréquence d'échantillonage
+        if ( (time - (i*echanti)) >= echanti)
         {
-            SaveData();
-            SaveCamera();
-            temps = 0f;
-        }
+            // On incrémente pour la prochaine frame
+            i += 1;
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            SceneManager.LoadScene("Enregistrement");
-            // Debug.Log("Début de l'enregistrement");
+            // On sauvegarde la rotation de la caméra et le temps associé
+            SaveManager.si.SaveTransformRotPos(transform, time);
         }
 
     }
 
-    void SaveData()
-    {
-        var Regard = this.transform.rotation;
-        // var Regard = this.transform.forward;
-
-        string path = Application.dataPath + "/Texte/dataBrut.txt";
-
-        float timer1 = this.GetComponent<Initialisation>().temps; // Le temps dans le jeu
-        string timer2 = "#" + timer1.ToString();
-
-        string[] content =
-        {
-            timer2,
-            Regard.ToString("G")
-        };
-
-        string saveString = string.Join(saveSeparator, content) + System.Environment.NewLine;
-        
-
-        // This text is added only once to the file.
-        if (!File.Exists(path))
-        {
-            File.WriteAllText(path, saveString);
-        }
-        else
-        {
-            File.AppendAllText(path, saveString);
-        }
-
-        // Debug.Log("Sauvegarde effectuée");
-    }
+    // TODO
+    // À Rajouter
 
     void SaveCamera()
     {

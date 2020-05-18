@@ -5,80 +5,115 @@ using System.IO;
 
 public class CreationBallon : MonoBehaviour
 {
-    private float tempsEcoule1;
-    private float tempsEcoule2;
+    float tempsEcoule1,tempsEcoule2; // Temps écoulé depuis le dernier ajout de ballon associé
 
-    private float seuilBR;
-    private float seuilBD;
+    float seuilBR, seuilBD; // Date à laquelle, on ajoute des ballons
 
-    public GameObject ballon1;
-    public GameObject ballon2;
+    public GameObject ballon1; // Préfab Ballon Rouge
+    public GameObject ballon2; // Préfab Ballon Doré
 
-    // Start is called before the first frame update
+    public bool aleatoire = true; // Pouvoir choisir si l'apparition des ballons est aléatoire ou non
+    int i = 0; // Pour gérer l'apparition des ballons si ce n'est pas aléatoire
+
+
     void Start()
     {
+        // On initialise les données 
         tempsEcoule1 = 0f;
         tempsEcoule2 = 0f;
 
+        // On crée une date random comme seuil pour l'apparition des ballons
         seuilBR = Random.Range(2.5f, 3.5f);
         seuilBD = Random.Range(12.5f, 17.5f);
 
+        // Inialisation des Data liées à la création des ballons
         string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
         File.WriteAllText(path,"Date de création des ballons dans le jeu, leurs coordonnées et spécificités :" + System.Environment.NewLine);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // On incrémente le temps
-        tempsEcoule1 += Time.deltaTime;
-        tempsEcoule2 += Time.deltaTime;
-
-        // Si le temps incrémenté atteint le seuil alors on crée un nouveau ballon1
-        if (tempsEcoule1 >= seuilBR)
+        if (aleatoire)
+        // Si l'apparition des ballons est aléatoire
         {
-            float module = Random.Range(5.0f, 10f);
-            float angle = Random.Range(-Mathf.PI, Mathf.PI);
+            // On incrémente le temps écoulé
+            tempsEcoule1 += Time.deltaTime;
+            tempsEcoule2 += Time.deltaTime;
 
-            float x = module * Mathf.Cos(angle);
-            float z = module * Mathf.Sin(angle);
+            // Si le temps incrémenté atteint le seuil alors on crée un nouveau ballon1 (ballon rouge)
+            if (tempsEcoule1 >= seuilBR)
+            {
+                // On crée un module et un angle aléatoire pour le positionnement du ballon
+                float module = Random.Range(5.0f, 10f);
+                float angle = Random.Range(-Mathf.PI, Mathf.PI);
 
-            Vector3 coord = new Vector3(x, 1, z);
-            Instantiate(ballon1, coord, Quaternion.identity);
+                float x = module * Mathf.Cos(angle);
+                float z = module * Mathf.Sin(angle);
 
-            // On réinitialise le temps
-            tempsEcoule1 = 0f;
-            seuilBR = Random.Range(2.5f, 3.5f);
+                // On ajoute le ballon au coordonnée créé
+                Vector3 coord = new Vector3(x, 0, z);
+                Instantiate(ballon1, coord, Quaternion.identity);
 
-            // On enregistre le lieu du ballon
-            Save("rouge", coord);
+                // On réinitialise le temps écoulé et on crée une nouvelle date pour l'apparition du prochain ballon
+                tempsEcoule1 = 0f;
+                seuilBR = Random.Range(2.5f, 3.5f);
+
+                // On sauvegarde les data liées à la création ballon rouge
+                Save("rouge", coord);
+            }
+
+            // Si le temps incrémenté atteint le seuil alors on crée un nouveau ballon2
+            if (tempsEcoule2 >= seuilBD)
+            {
+                // On crée un module et un angle aléatoire pour le positionnement du ballon
+                float module = Random.Range(5.0f, 10f);
+                float angle = Random.Range(-Mathf.PI, Mathf.PI);
+
+                float x = module * Mathf.Cos(angle);
+                float z = module * Mathf.Sin(angle);
+
+                // On ajoute le ballon au coordonnée créé
+                Vector3 coord = new Vector3(x, 0, z);
+                Instantiate(ballon2, coord, Quaternion.identity);
+
+                // On réinitialise le temps écoulé et on crée une nouvelle date pour l'apparition du prochain ballon
+                tempsEcoule2 = 0f;
+                seuilBD = Random.Range(12.5f, 17.5f);
+
+                // On sauvegarde les data liées à la création ballon doré
+                Save("or", coord);
+            }
         }
 
-        // Si le temps incrémenté atteint le seuil alors on crée un nouveau ballon2
-        if (tempsEcoule2 >= seuilBD)
+       
+        else
+        // Si l'apparition des ballons n'est pas aléatoire, on crée des ballons en cercle etc
         {
-            float module = Random.Range(5.0f, 10f);
-            float angle = Random.Range(-Mathf.PI, Mathf.PI);
+            tempsEcoule1 += Time.deltaTime;
+            if (tempsEcoule1 > 1.0f)
+            {
+                float module = 5.0f;
+                if (i > 12) { i = 0;  }
+                float angle = -Mathf.PI + Mathf.PI*i / 6;
+                i += 1;
 
-            float x = module * Mathf.Cos(angle);
-            float z = module * Mathf.Sin(angle);
+                float x = module * Mathf.Cos(angle);
+                float z = module * Mathf.Sin(angle);
 
-            Vector3 coord = new Vector3(x, 1, z);
-            Instantiate(ballon2, coord, Quaternion.identity);
+                Vector3 coord = new Vector3(x, 0, z);
+                Instantiate(ballon1, coord, Quaternion.identity);
+                tempsEcoule1 = 0f;
 
-            // On réinitialise le temps et le seuil
-            tempsEcoule2 = 0f;
-            seuilBD = Random.Range(12.5f, 17.5f);
-
-            // On enregistre le lieu du ballon
-            Save("or", coord);
+                // On enregistre le lieu du ballon
+                Save("rouge", coord);
+            }
         }
-
     }
 
 
     private void Save(string nom, Vector3 coord)
     {
+        // Lieu de stockage des data liées à la création des ballons
         string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
         string saveSeparator = "%";
 
@@ -92,7 +127,7 @@ public class CreationBallon : MonoBehaviour
             coord.ToString("F4")
         };
 
-        // On en fait un seul string
+        // On en fait un seul string avec saveSeparator comme séparateur
         string saveString = string.Join(saveSeparator, content);
         // On l'ajoute au fichier texte
         File.AppendAllText(path, saveString + "%" + System.Environment.NewLine);

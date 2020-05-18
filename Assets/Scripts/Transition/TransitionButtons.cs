@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Création de l'interface de transition à la fin d'un niveau
+
 public class TransitionButtons : MonoBehaviour
 {
 

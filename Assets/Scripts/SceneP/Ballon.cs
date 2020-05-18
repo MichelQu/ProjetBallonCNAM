@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Ce script gère la montée du ballon dans les airs
+// Et il détruit le ballon s'il atteint une certaine hauteur
+
 public class Ballon : MonoBehaviour
 {
-    public float speed = 1.0f;
+    public float speed = 0.05f;
 
     // Update is called once per frame
     void Update()
@@ -16,7 +19,7 @@ public class Ballon : MonoBehaviour
     {
         if (this.gameObject.name == "BallonRouge(Clone)")
         {
-            if (transform.position.y <= 25)
+            if (transform.position.y <= 10)
             {
                 transform.Translate(transform.up * speed * Time.deltaTime);
             }
@@ -28,7 +31,7 @@ public class Ballon : MonoBehaviour
 
         if (this.gameObject.name == "BallonDore(Clone)")
         {
-            if (transform.position.y <= 25)
+            if (transform.position.y <= 10)
             {
                 transform.Translate(transform.up * 2 * speed * Time.deltaTime);
             }

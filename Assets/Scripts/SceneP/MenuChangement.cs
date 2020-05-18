@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Script gérant l'interface dans la sceneP
+// Pourvoir mettre le jeu en arret et reprendre, quitter, etc...
+// Et gérer l'apparition des UI.
+
 public class MenuChangement : MonoBehaviour
 {
     public static bool isPaused = false;

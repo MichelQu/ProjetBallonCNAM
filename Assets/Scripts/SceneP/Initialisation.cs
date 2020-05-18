@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Script gérant l'initialisation des UI : objectif, timer 
+// Et lançant le chrono de la scèneP
+
 public class Initialisation : MonoBehaviour
 {
 

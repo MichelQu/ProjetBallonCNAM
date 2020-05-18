@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 
+// Script gérant l'interface dans la scène Enregistrement
+// Pouvoir rejouer l'enregistrement ou l'arreter 
+// Et gérer l'apparition des UI.
+
 public class MenuChangementSE : MonoBehaviour
 {
     public bool isPaused = false;
