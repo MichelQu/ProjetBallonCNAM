@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO;
 
-// Script gérant l'interface dans la scène Enregistrement
-// Pouvoir rejouer l'enregistrement ou l'arreter 
+// Script gérant l'interface dans la sceneP
+// Pourvoir mettre le jeu en arret et reprendre, quitter, etc...
 // Et gérer l'apparition des UI.
 
-public class MenuChangementSE : MonoBehaviour
+public class MenuChangementVisu : MonoBehaviour
 {
-    public bool isPaused = false;
+    public static bool isPaused = false;
 
     public GameObject pauseMenuUI;
     public GameObject resumeMenuUI;
@@ -34,17 +33,11 @@ public class MenuChangementSE : MonoBehaviour
                 Pause();
             }
         }
-
-        if (PlayerPrefs.GetInt("FinEnregistrement") == 1)
-        {
-            Pause();
-            PlayerPrefs.SetInt("FinEnregistrement", 0);
-        }
     }
 
     void Resume()
     {
-        Cursor.visible = true;
+        Cursor.visible = false;
         pauseMenuUI.SetActive(false);
         resumeMenuUI.SetActive(true);
         Time.timeScale = 1f;
@@ -60,26 +53,23 @@ public class MenuChangementSE : MonoBehaviour
         isPaused = true;
     }
 
-
-    public void RetryBut()
+    public void ResumeBut()
     {
-        SceneManager.LoadScene(4);
-        // Debug.Log("Retry");
+        Resume();
+    }
+
+    public void QuitBut()
+    {
+        Application.Quit();
+    }
+
+    public void RetourBut()
+    {
+        SceneManager.LoadScene("Enregistrement");
     }
 
     public void MenuBut()
     {
         SceneManager.LoadScene("Menu");
-        // Debug.Log("Chargement menu");
-    }
-
-    public void RetourBut()
-    {
-        SceneManager.LoadScene("Transition");
-    }
-
-    public void SaveBut()
-    {
-        SceneManager.LoadScene("Visualisation");
     }
 }

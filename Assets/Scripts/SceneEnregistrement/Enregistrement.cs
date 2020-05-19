@@ -89,8 +89,8 @@ public class Enregistrement : MonoBehaviour
         {
             if (Mathf.Abs(temps - ListTempsVisu[nbrVisu]) < 0.02f)
             {
-                DrawLineEnregistrement(nbrVisu);
-                nbrVisu += 1 ;
+                DrawLineEnregistrement(nbrVisu); // On dessine les lignes de visualisation
+                nbrVisu += 1 ; // On incrémente pour la suite
             }
         }
     }
@@ -166,20 +166,41 @@ public class Enregistrement : MonoBehaviour
 
         for (int i = 0; i < (textArray.Length/4); i++)
         {
-            // On ajoute le temps dans la liste des Temps pour la visualisation
-            ListTempsVisu.Add(float.Parse(textArray[4*i], CultureInfo.InvariantCulture));
             // On ajoute la position de la visualisation
             Vector3 pos = new Vector3(float.Parse(textArray[4 * i + 1], CultureInfo.InvariantCulture), float.Parse(textArray[4 * i+2], CultureInfo.InvariantCulture), float.Parse(textArray[4 * i+3], CultureInfo.InvariantCulture));
-            ListPosVisu.Add(pos);
+
+            if (i > 0)
+            {
+                // Si la caméra ne bouge pas trop, pas besoin d'ajouter de points pour dessiner
+                Vector3 posComparaison = ListPosVisu[ListPosVisu.Count - 1];
+                if (Mathf.Abs(posComparaison.x - pos.x) > 0.01f)
+                {
+                    if (Mathf.Abs(posComparaison.y - pos.y) > 0.01f)
+                    {
+                        if (Mathf.Abs(posComparaison.z - pos.z) > 0.01f)
+                        {
+                            // Les points ne sont pas identiques donc on ajoute
+                            ListPosVisu.Add(pos);
+                            ListTempsVisu.Add(float.Parse(textArray[4 * i], CultureInfo.InvariantCulture));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // On ajoute la première position et le premier temps ici
+                ListTempsVisu.Add(float.Parse(textArray[4 * i], CultureInfo.InvariantCulture));
+                ListPosVisu.Add(pos);
+            }
         }
     }
 
     void DrawLineEnregistrement(int nbr)
     {
-        Trait.positionCount = nbr;
+        Trait.positionCount = nbr; // On dit le nombre de point pour le dessin
         for (int i =0; i < nbr; i++)
         {
-            Trait.SetPosition(i, ListPosVisu[i]);
+            Trait.SetPosition(i, ListPosVisu[i]); // On rentre les positions
         }
     }
 }

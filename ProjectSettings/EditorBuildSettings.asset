@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Enregistrement.unity
     guid: 347e9e4d80dd141d484d676b91bd185f
+  - enabled: 1
+    path: Assets/Scenes/Visualisation.unity
+    guid: 89dae10d5a8984c16968dce9e286f331
   m_configObjects: {}
