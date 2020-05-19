@@ -25,8 +25,8 @@ public class ScriptLog : MonoBehaviour
         SaveManager.si.SaveTransformRotPos(transform, time);
 
         // Initialisation des Data de la Direction Caméra
-        string path2 = Application.dataPath + "/Texte/dataBrutCamera.txt";
-        File.WriteAllText(path2, "");
+        string path2 = Application.dataPath + "/Texte/dataVisualisationCamera.txt";
+        File.WriteAllText(path2, "Visualisation de la direction de la Caméra : " + System.Environment.NewLine);
     }
 
     // Update is called once per frame
@@ -43,26 +43,27 @@ public class ScriptLog : MonoBehaviour
 
             // On sauvegarde la rotation de la caméra et le temps associé
             SaveManager.si.SaveTransformRotPos(transform, time);
+            // On sauvegarde la direction de la caméra
+            SaveCamera(time);
         }
 
     }
 
-    // TODO
-    // À Rajouter
-
-    void SaveCamera()
+    void SaveCamera(float timer)
     {
         var Regard = this.transform.forward*30 + transform.position;
-        string path = Application.dataPath + "/Texte/dataBrutCamera.txt";
+        string path = Application.dataPath + "/Texte/dataVisualisationCamera.txt";
+
+        string timeMod = "#" + timer.ToString();
+
         string[] content =
         {
-            Regard.ToString("G")
+            timeMod,
+            Regard.ToString("G") + "%"
         };
 
         string saveString = string.Join(saveSeparator, content) + System.Environment.NewLine;
         File.AppendAllText(path, saveString);
-
-        // Debug.Log("Sauvegarde Caméra");
     }
 
 }

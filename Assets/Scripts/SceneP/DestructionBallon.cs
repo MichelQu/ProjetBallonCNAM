@@ -19,6 +19,8 @@ public class DestructionBallon : MonoBehaviour
     public Text zoneText1;
     public Text zoneText2;
 
+    public AudioClip sonBallon;
+
     void Start()
     {
         // On initialise les données 
@@ -49,6 +51,7 @@ public class DestructionBallon : MonoBehaviour
                     // On lance l'audio de destruction d'un ballon
                     AudioClip son = hit.transform.gameObject.GetComponent<AudioSource>().clip;
                     hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(son, 0.5f);
+                    hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(sonBallon, 1f);
 
                     // On désactive son mesh renderer pour ne plus pouvoir interagir avec. On est obligé de faire ça pour pouvoir garder l'audio qui est joué juste au-dessus
                     // Un autre script s'occupe de détruire définitivement l'objet.

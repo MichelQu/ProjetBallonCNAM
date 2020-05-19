@@ -158,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 75, y: -75}
-  m_SizeDelta: {x: 75, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7644384
 MonoBehaviour:
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Text: 'Niveau 8
 
 
-    200 points'
+    200 Ballons'
 --- !u!222 &12914274
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Text: 'Niveau 3
 
 
-    20 points'
+    20 Ballons'
 --- !u!222 &219635841
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Text: 'Niveau 1
 
 
-    5 points'
+    5 Ballons'
 --- !u!222 &338973396
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -688,7 +688,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 225, y: 75}
-  m_SizeDelta: {x: 75, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &363928447
 MonoBehaviour:
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_Text: 'Niveau 2
 
 
-    10 points'
+    10 Ballons'
 --- !u!222 &390868995
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -911,7 +911,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -225, y: 75}
-  m_SizeDelta: {x: 75, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &578660298
 MonoBehaviour:
@@ -1154,7 +1154,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 225, y: -75}
-  m_SizeDelta: {x: 75, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678305677
 MonoBehaviour:
@@ -1297,7 +1297,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -225, y: -75}
-  m_SizeDelta: {x: 75, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &681293783
 MonoBehaviour:
@@ -1647,7 +1647,7 @@ MonoBehaviour:
   m_Text: 'Niveau 5
 
 
-    50 points'
+    50 Ballons'
 --- !u!222 &893181647
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1694,7 +1694,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -75, y: 75}
-  m_SizeDelta: {x: 75, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &909304863
 MonoBehaviour:
@@ -1963,7 +1963,7 @@ MonoBehaviour:
   m_Text: 'Niveau 6
 
 
-    75 points'
+    75 Ballons'
 --- !u!222 &1388865164
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2043,7 +2043,7 @@ MonoBehaviour:
   m_Text: 'Niveau 7
 
 
-    100 points'
+    100 Ballons'
 --- !u!222 &1412566144
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2123,7 +2123,7 @@ MonoBehaviour:
   m_Text: 'Niveau 4
 
 
-    35 points'
+    35 Ballons'
 --- !u!222 &1463304260
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2170,7 +2170,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -75, y: -75}
-  m_SizeDelta: {x: 75, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1551550782
 MonoBehaviour:
@@ -2313,7 +2313,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 75, y: 75}
-  m_SizeDelta: {x: 75, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2038795652
 MonoBehaviour:

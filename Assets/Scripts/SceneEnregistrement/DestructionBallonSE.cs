@@ -24,6 +24,8 @@ public class DestructionBallonSE : MonoBehaviour
 
     void Start()
     {
+        // Recherche de la caméra
+        cam = GetComponent<Camera>();
         // Initialisation des UI
         textScore.text = "Score : " + score;
         textBallon.text = "Ballons détruits : " + ballons;

@@ -1043,7 +1043,6 @@ MonoBehaviour:
   ballon1: {fileID: 987095177240781764, guid: 14d598ee1eaa846b6be842b3290d85f3, type: 3}
   ballon2: {fileID: 5419947665110042586, guid: 75951a0b7eb1449cdb9b8e165ededd63, type: 3}
   aleatoire: 1
-  i: 0
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1060,6 +1059,7 @@ MonoBehaviour:
   ballons: 0
   zoneText1: {fileID: 658796249}
   zoneText2: {fileID: 340762238}
+  sonBallon: {fileID: 8300000, guid: a3033c4e24b3f49b69a43cbf4f628270, type: 3}
 --- !u!114 &963194232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1333,10 +1333,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1081641674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e58bee84ed4047b6a8fe8ddf562d4d5, type: 3}
+  m_Script: {fileID: 11500000, guid: d7f257467caba44409632e41189c5cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: Assets/Texte/save.txt
+  fileName: Assets/Texte/dataOrientationCamera.txt
 --- !u!1 &1235518145
 GameObject:
   m_ObjectHideFlags: 0

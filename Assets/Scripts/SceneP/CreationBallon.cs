@@ -20,7 +20,7 @@ public class CreationBallon : MonoBehaviour
     {
         // On initialise les données 
         tempsEcoule1 = 0f;
-        tempsEcoule2 = 0f;
+        // tempsEcoule2 = 0f;
 
         // On crée une date random comme seuil pour l'apparition des ballons
         seuilBR = Random.Range(2.5f, 3.5f);
@@ -63,26 +63,26 @@ public class CreationBallon : MonoBehaviour
             }
 
             // Si le temps incrémenté atteint le seuil alors on crée un nouveau ballon2
-            if (tempsEcoule2 >= seuilBD)
-            {
-                // On crée un module et un angle aléatoire pour le positionnement du ballon
-                float module = Random.Range(5.0f, 10f);
-                float angle = Random.Range(-Mathf.PI, Mathf.PI);
+            //if (tempsEcoule2 >= seuilBD)
+            //{
+            //    // On crée un module et un angle aléatoire pour le positionnement du ballon
+            //    float module = Random.Range(5.0f, 10f);
+            //    float angle = Random.Range(-Mathf.PI, Mathf.PI);
 
-                float x = module * Mathf.Cos(angle);
-                float z = module * Mathf.Sin(angle);
+            //    float x = module * Mathf.Cos(angle);
+            //    float z = module * Mathf.Sin(angle);
 
-                // On ajoute le ballon au coordonnée créé
-                Vector3 coord = new Vector3(x, 0, z);
-                Instantiate(ballon2, coord, Quaternion.identity);
+            //    // On ajoute le ballon au coordonnée créé
+            //    Vector3 coord = new Vector3(x, 0, z);
+            //    Instantiate(ballon2, coord, Quaternion.identity);
 
-                // On réinitialise le temps écoulé et on crée une nouvelle date pour l'apparition du prochain ballon
-                tempsEcoule2 = 0f;
-                seuilBD = Random.Range(12.5f, 17.5f);
+            //    // On réinitialise le temps écoulé et on crée une nouvelle date pour l'apparition du prochain ballon
+            //    tempsEcoule2 = 0f;
+            //    seuilBD = Random.Range(12.5f, 17.5f);
 
-                // On sauvegarde les data liées à la création ballon doré
-                Save("or", coord);
-            }
+            //    // On sauvegarde les data liées à la création ballon doré
+            //    Save("or", coord);
+            //}
         }
 
        

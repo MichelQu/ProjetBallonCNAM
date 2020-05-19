@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveManager : SingleMonobehavior<SaveManager>
 {
-    public string fileName = "Assets/Texte/save.txt"; // Le lieu où l'on sauvegarde le fichier
+    public string fileName = "Assets/Texte/dataOrientationCamera.txt"; // Le lieu où l'on sauvegarde le fichier
 
     // Classe SaveTransform : information de la rotation d'un go à un temps t
     public class SaveTransform

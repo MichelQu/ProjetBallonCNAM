@@ -19,9 +19,16 @@ public class Enregistrement : MonoBehaviour
     private List<float> ListTempsR;
     private List<float> ListTempsD;
 
+    private List<float> ListTempsVisu;
+    private List<Vector3> ListPosVisu;
+
+    // Line Renderer
+    LineRenderer Trait;
+
     // Les variables du scripts
     private int nbrR;
     private int nbrD;
+    private int nbrVisu;
     #endregion
 
     // Start is called before the first frame update
@@ -33,15 +40,22 @@ public class Enregistrement : MonoBehaviour
         // On initialise les variables pour le tableau
         nbrR = 0;
         nbrD = 0;
+        nbrVisu = 0;
+        // on récupère le lineRenderer de la cam
+        Trait= GetComponent<LineRenderer>();
+
         // On initialise les listes des ballons et des temps d'apparition de ces ballons
         ListBallonR = new List<Vector3>();
         ListBallonD = new List<Vector3>();
         ListTempsR = new List<float>();
         ListTempsD = new List<float>();
+        // On initialise les listes de temps et de coordonnées pour faire l'apparition de la visualisation
+        ListTempsVisu = new List<float>();
+        ListPosVisu = new List<Vector3>();
 
         // On récupère toutes les infos des coordonnées qu'on a enregistré
         LoadDataBallon();
-        // LoadDataCamera();
+        LoadDataVisualisation();
     }
 
     // Update is called once per frame
@@ -68,6 +82,15 @@ public class Enregistrement : MonoBehaviour
                 Vector3 coord = ListBallonR[nbrD]; // On récupre les coordonnées 
                 nbrD += 1; // On incrémente pour la suite
                 Instantiate(ballon2, coord, Quaternion.identity); // On instancie le ballon doré
+            }
+        }
+
+        if (nbrVisu < ListPosVisu.Count)
+        {
+            if (Mathf.Abs(temps - ListTempsVisu[nbrVisu]) < 0.02f)
+            {
+                DrawLineEnregistrement(nbrVisu);
+                nbrVisu += 1 ;
             }
         }
     }
@@ -114,6 +137,49 @@ public class Enregistrement : MonoBehaviour
                 Vector3 pos = new Vector3(float.Parse(textArray[5 * i + 2], CultureInfo.InvariantCulture), float.Parse(textArray[5 * i + 3], CultureInfo.InvariantCulture), float.Parse(textArray[5 * i + 4], CultureInfo.InvariantCulture));
                 ListBallonD.Add(pos);
             }
+        }
+    }
+
+    void LoadDataVisualisation()
+    {
+        // Initialisation des variables
+        string[] textArray;
+        ListTempsVisu.Clear();
+        ListPosVisu.Clear();
+
+        // Le chemin associé aux datas de visualisation
+        string path = Application.dataPath + "/Texte/dataVisualisationCamera.txt";
+
+        // On récupère le fichier texte
+        string readText = File.ReadAllText(path);
+
+        // On le transforme un peu pour pouvoir l'utiliser plus tard
+        readText = readText.Replace("Visualisation de la direction de la Caméra : " + System.Environment.NewLine, "");
+        readText = readText.Replace("(", "");
+        readText = readText.Replace(")", "");
+        readText = readText.Replace(", ", "%");
+        readText = readText.Replace("#", "");
+        readText = readText.Replace(System.Environment.NewLine, "");
+
+        // On le mets dans un liste de String grâce au séparateur (%) qu'on a mis dans le fichier txt
+        textArray = readText.Split(new[] { "%" }, System.StringSplitOptions.None);
+
+        for (int i = 0; i < (textArray.Length/4); i++)
+        {
+            // On ajoute le temps dans la liste des Temps pour la visualisation
+            ListTempsVisu.Add(float.Parse(textArray[4*i], CultureInfo.InvariantCulture));
+            // On ajoute la position de la visualisation
+            Vector3 pos = new Vector3(float.Parse(textArray[4 * i + 1], CultureInfo.InvariantCulture), float.Parse(textArray[4 * i+2], CultureInfo.InvariantCulture), float.Parse(textArray[4 * i+3], CultureInfo.InvariantCulture));
+            ListPosVisu.Add(pos);
+        }
+    }
+
+    void DrawLineEnregistrement(int nbr)
+    {
+        Trait.positionCount = nbr;
+        for (int i =0; i < nbr; i++)
+        {
+            Trait.SetPosition(i, ListPosVisu[i]);
         }
     }
 }
