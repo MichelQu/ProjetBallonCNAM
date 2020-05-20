@@ -8,6 +8,7 @@ using UnityEngine;
 public class Ballon : MonoBehaviour
 {
     private float speed = 1f;
+    public float norme;
 
     // Update is called once per frame
     void Update()

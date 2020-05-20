@@ -67,7 +67,7 @@ public class Enregistrement : MonoBehaviour
         // On ajoute les ballons Rouges et Dorés selon le temps
         if (nbrR < ListBallonR.Count)
         {
-            if (Mathf.Abs(temps - ListTempsR[nbrR]) < 0.01f )
+            if (Mathf.Abs(temps - ListTempsR[nbrR]) < 0.02f )
             {
                 Vector3 coord = ListBallonR[nbrR]; // On récupre les coordonnées 
                 nbrR += 1; // On incrémente pour la suite
@@ -77,7 +77,7 @@ public class Enregistrement : MonoBehaviour
 
         if (nbrD < ListBallonD.Count)
         {
-            if (Mathf.Abs(temps - ListTempsD[nbrD]) < 0.01f)
+            if (Mathf.Abs(temps - ListTempsD[nbrD]) < 0.02f)
             {
                 Vector3 coord = ListBallonR[nbrD]; // On récupre les coordonnées 
                 nbrD += 1; // On incrémente pour la suite
@@ -198,6 +198,15 @@ public class Enregistrement : MonoBehaviour
     void DrawLineEnregistrement(int nbr)
     {
         Trait.positionCount = nbr; // On dit le nombre de point pour le dessin
+
+        // On crée les couleurs
+        Color c1 = Color.green;
+        Color c2 = Color.blue;
+
+        // On définit les couleurs des traits
+        Trait.material = new Material(Shader.Find("Sprites/Default"));
+        Trait.SetColors(c1, c2);
+
         for (int i =0; i < nbr; i++)
         {
             Trait.SetPosition(i, ListPosVisu[i]); // On rentre les positions

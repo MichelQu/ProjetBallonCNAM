@@ -17,4 +17,11 @@ public class MenuP : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void ResetBut()
+    {
+        // On reset le numéro de sauvegarde
+        PlayerPrefs.SetInt("NuméroSave",0);
+        Debug.Log("Ça reset !");
+    }
 }

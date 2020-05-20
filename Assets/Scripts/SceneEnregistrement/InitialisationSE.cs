@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // Script gérant l'initialisation des UI : objectif, timer 
 // Et lançant le chrono de la scène Enregistrement
@@ -23,8 +24,20 @@ public class InitialisationSE : MonoBehaviour
 
     private void Update()
     {
-        temps += Time.deltaTime;
-        tempsInt = Mathf.RoundToInt(temps);
-        Timer.text = tempsInt + "s";
+        if (SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            temps += Time.deltaTime;
+            tempsInt = Mathf.RoundToInt(temps);
+            Timer.text = tempsInt + "s";
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 6)
+        {
+            if (PlayerPrefs.GetInt("VisualisationLibre") == 0)
+            {
+                temps += Time.deltaTime;
+                tempsInt = Mathf.RoundToInt(temps);
+                Timer.text = tempsInt + "s";
+            }
+        }
     }
 }

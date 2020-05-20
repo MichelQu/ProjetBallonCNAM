@@ -79,6 +79,14 @@ public class VisualisationVisu : MonoBehaviour
         // On définit le nbr de points
         Trait.positionCount = ListPosVisu.Count;
 
+        // On crée les couleurs
+        Color c1 = Color.green;
+        Color c2 = Color.blue;
+
+        // On définit les couleurs des traits
+        Trait.material = new Material(Shader.Find("Sprites/Default"));
+        Trait.SetColors(c1, c2);
+
         // On définit les positions
         for (int i = 0; i < ListPosVisu.Count; i++)
         {

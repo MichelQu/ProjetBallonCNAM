@@ -14,7 +14,7 @@ public class DestructionBallon : MonoBehaviour
 {
     Camera cam;
     public int score = 0;
-    public int ballons = 0;
+    private int ballons = 0;
 
     public Text zoneText1;
     public Text zoneText2;
@@ -51,7 +51,7 @@ public class DestructionBallon : MonoBehaviour
                     // On lance l'audio de destruction d'un ballon
                     AudioClip son = hit.transform.gameObject.GetComponent<AudioSource>().clip;
                     hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(son, 0.5f);
-                    hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(sonBallon, 1f);
+                    hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(sonBallon, 0.7f);
 
                     // On désactive son mesh renderer pour ne plus pouvoir interagir avec. On est obligé de faire ça pour pouvoir garder l'audio qui est joué juste au-dessus
                     // Un autre script s'occupe de détruire définitivement l'objet.
@@ -65,6 +65,14 @@ public class DestructionBallon : MonoBehaviour
                     {
                         ballons += 1;
                         score += 1;
+
+                        //Vector3 vise = cam.transform.forward * hit.transform.gameObject.GetComponent<Ballon>().norme + cam.transform.position;
+                        //Vector3 centre = hit.transform.position;
+                        //Vector3 erreur = vise - centre;
+
+                        //Debug.Log("Visée : " + vise);
+                        //Debug.Log("Centre : " + centre);
+                        //Debug.Log("Erreur : " + erreur);
                     }
                     if (hit.transform.gameObject.name == "BallonDore(Clone)")
                     {

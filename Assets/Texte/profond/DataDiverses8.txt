@@ -1,0 +1,11 @@
+Quelques données variées sur l'expérience : 
+- Nombre de ballons détruits : 5 ballons
+- Durée totale de l'expérience : 19.61819s
+- Durée moyenne d'explosion des ballons : 3.923638s
+
+Le temps de destruction des ballons : 
+- Temps destruction Ballon 1 : 7.120041s (+ 7.120041s)
+- Temps destruction Ballon 2 : 8.856637s (+ 1.736596s)
+- Temps destruction Ballon 3 : 12.26959s (+ 3.412952s)
+- Temps destruction Ballon 4 : 15.86181s (+ 3.59222s)
+- Temps destruction Ballon 5 : 19.61819s (+ 3.756379s)

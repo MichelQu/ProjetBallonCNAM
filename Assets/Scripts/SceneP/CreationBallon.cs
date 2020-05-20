@@ -23,8 +23,8 @@ public class CreationBallon : MonoBehaviour
         // tempsEcoule2 = 0f;
 
         // On crée une date random comme seuil pour l'apparition des ballons
-        seuilBR = Random.Range(2.5f, 3.5f);
-        seuilBD = Random.Range(12.5f, 17.5f);
+        seuilBR = 3.0f + Random.Range(-0.5f, 0.5f);
+        seuilBD = 15.0f + Random.Range(-2.5f, 2.5f);
 
         // Inialisation des Data liées à la création des ballons
         string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
@@ -44,7 +44,7 @@ public class CreationBallon : MonoBehaviour
             if (tempsEcoule1 >= seuilBR)
             {
                 // On crée un module et un angle aléatoire pour le positionnement du ballon
-                float module = Random.Range(5.0f, 10f);
+                float module = 7.5f + Random.Range(-2.5f, 2.5f);
                 float angle = Random.Range(-Mathf.PI, Mathf.PI);
 
                 float x = module * Mathf.Cos(angle);
@@ -52,11 +52,13 @@ public class CreationBallon : MonoBehaviour
 
                 // On ajoute le ballon au coordonnée créé
                 Vector3 coord = new Vector3(x, 0, z);
-                Instantiate(ballon1, coord, Quaternion.identity);
+                GameObject go = Instantiate(ballon1, coord, Quaternion.identity);
+
+                go.GetComponent<Ballon>().norme = module;
 
                 // On réinitialise le temps écoulé et on crée une nouvelle date pour l'apparition du prochain ballon
                 tempsEcoule1 = 0f;
-                seuilBR = Random.Range(2.5f, 3.5f);
+                seuilBR = 3.0f + Random.Range(-0.5f, 0.5f);
 
                 // On sauvegarde les data liées à la création ballon rouge
                 Save("rouge", coord);
@@ -66,7 +68,7 @@ public class CreationBallon : MonoBehaviour
             //if (tempsEcoule2 >= seuilBD)
             //{
             //    // On crée un module et un angle aléatoire pour le positionnement du ballon
-            //    float module = Random.Range(5.0f, 10f);
+            //    float module = 7.5f + Random.Range(-2.5f, 2.5f);
             //    float angle = Random.Range(-Mathf.PI, Mathf.PI);
 
             //    float x = module * Mathf.Cos(angle);
@@ -78,14 +80,14 @@ public class CreationBallon : MonoBehaviour
 
             //    // On réinitialise le temps écoulé et on crée une nouvelle date pour l'apparition du prochain ballon
             //    tempsEcoule2 = 0f;
-            //    seuilBD = Random.Range(12.5f, 17.5f);
+            //    seuilBD = 15.0f + Random.Range(-2.5f, 2.5f);
 
             //    // On sauvegarde les data liées à la création ballon doré
             //    Save("or", coord);
             //}
         }
 
-       
+
         else
         // Si l'apparition des ballons n'est pas aléatoire, on crée des ballons en cercle etc
         {

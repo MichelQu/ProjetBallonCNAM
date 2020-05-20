@@ -78,8 +78,14 @@ public class MenuChangementSE : MonoBehaviour
         SceneManager.LoadScene("Transition");
     }
 
-    public void SaveBut()
+    public void VisualisationBut()
     {
         SceneManager.LoadScene("Visualisation");
     }
+
+    public void VisualisationBut2()
+    {
+        SceneManager.LoadScene("VisualisationLibre");
+    }
+
 }

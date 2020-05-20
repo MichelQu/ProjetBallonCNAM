@@ -1,6 +1,0 @@
-Liste regroupant le temps, le nom et la position du ballon détruit
-#22.9661%BallonRouge(Clone)%(-5.940584, 2.262995, -4.000216)
-#28.19258%BallonRouge(Clone)%(2.862034, 6.075937, 7.891644)
-#30.28494%BallonRouge(Clone)%(0.4563257, 5.129907, -5.882607)
-#32.35446%BallonRouge(Clone)%(-9.748114, 4.175893, 1.790588)
-#34.01889%BallonRouge(Clone)%(6.624198, 2.425465, 0.380197)

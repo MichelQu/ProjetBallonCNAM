@@ -28,12 +28,16 @@ public class TransitionButtons : MonoBehaviour
         string path3 = Application.dataPath + "/Texte/profond/DataBallonDestruction" + PlayerPrefs.GetInt("NuméroSave") + ".txt";
         string readText3 = File.ReadAllText(Application.dataPath + "/Texte/dataBallonDestruction.txt");
         File.WriteAllText(path3, readText3);
-        // Data B
+        // Data Visualisation Caméra
         string path4 = Application.dataPath + "/Texte/profond/DataVisualisationCamera" + PlayerPrefs.GetInt("NuméroSave") + ".txt";
         string readText4 = File.ReadAllText(Application.dataPath + "/Texte/dataVisualisationCamera.txt");
         File.WriteAllText(path4, readText4);
+        // Data Diverses
+        string path5 = Application.dataPath + "/Texte/profond/DataDiverses" + PlayerPrefs.GetInt("NuméroSave") + ".txt";
+        string readText5 = File.ReadAllText(Application.dataPath + "/Texte/dataDiverses.txt");
+        File.WriteAllText(path5, readText5);
 
-        Debug.Log("SauvegardeProfonde");
+        // Debug.Log("SauvegardeProfonde");
     }
 
     public void MenuButton()

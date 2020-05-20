@@ -55,11 +55,24 @@ public class DestructionBallonSE : MonoBehaviour
         }
 
         // Si le score est au-dessus de l'objectif alors on annonce la fin de l'enregistrement
-        if (score >= PlayerPrefs.GetInt("Ballons"))
+        if(SceneManager.GetActiveScene().buildIndex == 4)
         {
-            // Variable Environnement qui annonce la fin de l'enregistrement
-            PlayerPrefs.SetInt("FinEnregistrement", 1);
+            if (score >= PlayerPrefs.GetInt("Ballons"))
+            {
+                // Variable Environnement qui annonce la fin de l'enregistrement
+                PlayerPrefs.SetInt("FinEnregistrement", 1);
+            }
         }
+
+        // Si le score est au-dessus de l'objectif alors on arrête le chrono dans la visualisation libre
+        if(SceneManager.GetActiveScene().buildIndex == 6)
+        {
+            if (score >= PlayerPrefs.GetInt("Ballons"))
+            {
+                PlayerPrefs.SetInt("VisualisationLibre", 1);
+            }
+        }
+
     }
 
     void Destruction(GameObject[] listGO)
