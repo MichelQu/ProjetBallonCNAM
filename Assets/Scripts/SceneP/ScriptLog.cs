@@ -8,11 +8,17 @@ using UnityEngine.SceneManagement;
 
 public class ScriptLog : MonoBehaviour
 {
-
+    // Quelques Variables 
     private float time = 0;
     private float echanti = 0.1f;
     int tamponScore = 0;
+    // Les listes qui seront utiles 
     List<float> listTemps = new List<float>();
+    List<Vector3> listErreur = new List<Vector3>();
+    // Calcul de la distance
+    Vector3 pos1;
+    Vector3 pos2;
+    float angle;
 
     string saveSeparator = "%";
     int i = 0;
@@ -23,7 +29,8 @@ public class ScriptLog : MonoBehaviour
         // On récupère les infos utiles aux starts
         listTemps.Clear();
         time = this.GetComponent<Initialisation>().temps;
-        tamponScore = this.GetComponent<DestructionBallon>().score;
+        tamponScore = this.GetComponent<DestructionBallonV2>().score;
+        pos1 = transform.forward;
 
         // Initialisation des Data de l'Orientation de la Caméra
         SaveManager.si.Clear(true);
@@ -44,7 +51,7 @@ public class ScriptLog : MonoBehaviour
         // Récupération du temps
         time = this.GetComponent<Initialisation>().temps;
         // Récupération du score
-        int score = this.GetComponent<DestructionBallon>().score;
+        int score = this.GetComponent<DestructionBallonV2>().score;
 
         // Si le temps est supérieur à la fréquence d'échantillonage
         if ( (time - (i*echanti)) >= echanti)
@@ -56,12 +63,16 @@ public class ScriptLog : MonoBehaviour
             SaveManager.si.SaveTransformRotPos(transform, time);
             // On sauvegarde la direction de la caméra
             SaveCamera(time);
+            // On ajoute les distances angulaires
+            pos2 = transform.forward;
+            angle += Vector3.Angle(pos1, pos2);
+            pos1 = pos2;
         }
 
         // Si le score a évolué donc 
         if (score != tamponScore)
         {
-            Debug.Log("On ajoute un temps");
+            // Debug.Log("On ajoute un temps");
             // On modifie le score 
             tamponScore = score;
             // On note le temps dans un liste
@@ -70,18 +81,30 @@ public class ScriptLog : MonoBehaviour
 
         if (score >= 5)
         {
-            SauvegardeDonnee(time);
+            SauvegardeDonnee(time, angle);
         }
     }
 
-    void SauvegardeDonnee(float timer)
+    void SauvegardeDonnee(float timer, float angleD)
     {
         string path = Application.dataPath + "/Texte/dataDiverses.txt";
+        // Information sur l'expérience réalisée
         File.AppendAllText(path, "- Nombre de ballons détruits : " + PlayerPrefs.GetInt("Ballons") + " ballons" + System.Environment.NewLine);
         File.AppendAllText(path, "- Durée totale de l'expérience : " + timer + "s" + System.Environment.NewLine);
         File.AppendAllText(path, "- Durée moyenne d'explosion des ballons : " + timer/PlayerPrefs.GetInt("Ballons") + "s" + System.Environment.NewLine);
 
-        File.AppendAllText(path, System.Environment.NewLine + "Le temps de destruction des ballons : " + System.Environment.NewLine);
+        // On récupère la liste des erreurs
+        listErreur = this.GetComponent<DestructionBallonV2>().ListErrorMoyenne;
+        float ErreurMoy = 0f;
+
+        foreach(Vector3 erreur in listErreur)
+        {
+            ErreurMoy += Mathf.Sqrt(erreur.x * erreur.x + erreur.y * erreur.y + erreur.y * erreur.y);
+        }
+        ErreurMoy = ErreurMoy / PlayerPrefs.GetInt("Ballons");
+        File.AppendAllText(path, "- Erreur de précision moyenne dans la destruction des ballons : " + ErreurMoy + System.Environment.NewLine);
+        File.AppendAllText(path, "- Distance angulaire parcourue par ballon : " + angleD / PlayerPrefs.GetInt("Ballons") + "°" + System.Environment.NewLine);
+        File.AppendAllText(path, System.Environment.NewLine + "Informations diverses sur la destruction des ballons : " + System.Environment.NewLine);
 
         int i = 1;
         float tamponTemps = 0f;
@@ -90,12 +113,15 @@ public class ScriptLog : MonoBehaviour
         {
             // On calcule la différence de temps 
             float differenceTemps = item - tamponTemps;
+            Vector3 erreur = listErreur[i - 1];
+            float echelle = Mathf.Sqrt(erreur.x * erreur.x + erreur.y * erreur.y + erreur.y * erreur.y);
             // On écrit ce qu'on va mettre dans le fichier texte
             string debutMot = "- Temps destruction Ballon " + i + " : ";
             string finMot = "s (+ " + differenceTemps + "s)";
+            string alinea = "       ";
+            string erreurS = "Précision de la visée : " + echelle;
             // On l'ajoute dans le fichier texte
-            File.AppendAllText(path,debutMot + item + finMot + System.Environment.NewLine);
-
+            File.AppendAllText(path,debutMot + item + finMot + System.Environment.NewLine + alinea + erreurS + System.Environment.NewLine);
             // On redéfinit les variables pour la suite
             i += 1;
             tamponTemps = item;

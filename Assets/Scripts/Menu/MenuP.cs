@@ -10,7 +10,7 @@ public class MenuP : MonoBehaviour
     public void PlayBut()
     {
         SceneManager.LoadScene("Niveaux");
-        Debug.Log("Play");
+        // Debug.Log("Play");
     }
 
     public void QuitBut()
@@ -22,6 +22,6 @@ public class MenuP : MonoBehaviour
     {
         // On reset le numéro de sauvegarde
         PlayerPrefs.SetInt("NuméroSave",0);
-        Debug.Log("Ça reset !");
+        // Debug.Log("Ça reset !");
     }
 }

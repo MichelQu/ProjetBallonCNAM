@@ -19,7 +19,7 @@ public class CameraMouvement : MonoBehaviour
             rotationX -= Input.GetAxis("Mouse Y") * sensitivity;
 		    rotationY += Input.GetAxis("Mouse X") * sensitivity;
 
-		    rotationX = Mathf.Clamp(rotationX, -40, 25);
+		    rotationX = Mathf.Clamp(rotationX, -90, 50);
 
 		    transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
         }

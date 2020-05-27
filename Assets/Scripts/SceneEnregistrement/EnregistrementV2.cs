@@ -26,7 +26,7 @@ public class EnregistrementV2 : MonoBehaviour
             float t = (time / savePeriod) - ist;
             ist %= SaveManager.si.SaveTransforms.Count;
 
-            if (SaveManager.si.SaveTransforms[ist + 1] != null)
+            if (SaveManager.si.SaveTransforms.Count > ist+1)
             // s'il y a encore des trucs dans l'enregistrement
             {
                 SaveManager.SaveTransform nextSt = SaveManager.si.SaveTransforms[ist+1];

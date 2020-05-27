@@ -1,11 +1,16 @@
 Quelques données variées sur l'expérience : 
 - Nombre de ballons détruits : 5 ballons
-- Durée totale de l'expérience : 19.61819s
-- Durée moyenne d'explosion des ballons : 3.923638s
+- Durée totale de l'expérience : 20.2849s
+- Durée moyenne d'explosion des ballons : 4.056981s
 
 Le temps de destruction des ballons : 
-- Temps destruction Ballon 1 : 7.120041s (+ 7.120041s)
-- Temps destruction Ballon 2 : 8.856637s (+ 1.736596s)
-- Temps destruction Ballon 3 : 12.26959s (+ 3.412952s)
-- Temps destruction Ballon 4 : 15.86181s (+ 3.59222s)
-- Temps destruction Ballon 5 : 19.61819s (+ 3.756379s)
+- Temps destruction Ballon 1 : 8.034854s (+ 8.034854s)
+     Précision de la visé (vise - posBal) : (0.2, 0.2, 0.0)
+- Temps destruction Ballon 2 : 10.07933s (+ 2.044473s)
+     Précision de la visé (vise - posBal) : (0.0, 0.0, -0.1)
+- Temps destruction Ballon 3 : 13.08149s (+ 3.002163s)
+     Précision de la visé (vise - posBal) : (0.0, 0.0, 0.0)
+- Temps destruction Ballon 4 : 17.19726s (+ 4.11577s)
+     Précision de la visé (vise - posBal) : (-0.1, 0.1, -0.1)
+- Temps destruction Ballon 5 : 20.2849s (+ 3.087645s)
+     Précision de la visé (vise - posBal) : (-0.2, 0.1, 0.0)

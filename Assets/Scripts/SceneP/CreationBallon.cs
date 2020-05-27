@@ -102,7 +102,7 @@ public class CreationBallon : MonoBehaviour
                 float x = module * Mathf.Cos(angle);
                 float z = module * Mathf.Sin(angle);
 
-                Vector3 coord = new Vector3(x, 0, z);
+                Vector3 coord = new Vector3(x, 1, z);
                 Instantiate(ballon1, coord, Quaternion.identity);
                 tempsEcoule1 = 0f;
 

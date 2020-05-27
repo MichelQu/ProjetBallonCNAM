@@ -65,14 +65,6 @@ public class DestructionBallon : MonoBehaviour
                     {
                         ballons += 1;
                         score += 1;
-
-                        //Vector3 vise = cam.transform.forward * hit.transform.gameObject.GetComponent<Ballon>().norme + cam.transform.position;
-                        //Vector3 centre = hit.transform.position;
-                        //Vector3 erreur = vise - centre;
-
-                        //Debug.Log("Visée : " + vise);
-                        //Debug.Log("Centre : " + centre);
-                        //Debug.Log("Erreur : " + erreur);
                     }
                     if (hit.transform.gameObject.name == "BallonDore(Clone)")
                     {
@@ -91,7 +83,7 @@ public class DestructionBallon : MonoBehaviour
         // Si oui, on change de scène
         if (PlayerPrefs.GetInt("Ballons") == ballons)
         {
-            Debug.Log("Vous avez réussi le niveau");
+            // Debug.Log("Vous avez réussi le niveau");
             SceneManager.LoadScene("Transition");
         }
     }

@@ -56,7 +56,7 @@ public class MenuChangement : MonoBehaviour
     public void ResumeBut()
     {
         Resume();
-        Debug.Log("Resume");
+        // Debug.Log("Resume");
     }
 
     public void QuitBut()
@@ -68,6 +68,11 @@ public class MenuChangement : MonoBehaviour
     public void MenuBut()
     {
         SceneManager.LoadScene("Menu");
-        Debug.Log("Chargement menu");
+        // Debug.Log("Chargement menu");
+    }
+
+    public void PauseBut()
+    {
+        Pause();
     }
 }
