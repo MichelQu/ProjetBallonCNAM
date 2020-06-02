@@ -79,4 +79,9 @@ public class MenuChangementVisuL : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+
+    public void PauseBut()
+    {
+        Pause();
+    }
 }

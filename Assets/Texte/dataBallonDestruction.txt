@@ -1,1 +1,2 @@
 Liste regroupant le temps, le nom et la position du ballon détruit
+#7.216722%BallonRouge(Clone)%(0.3273923, 4.172906, -8.240418)

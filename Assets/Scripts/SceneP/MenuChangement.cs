@@ -75,4 +75,9 @@ public class MenuChangement : MonoBehaviour
     {
         Pause();
     }
+
+    public void EnregistrementBut()
+    {
+        SceneManager.LoadScene("Enregistrement");
+    }
 }

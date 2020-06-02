@@ -88,4 +88,8 @@ public class MenuChangementSE : MonoBehaviour
         SceneManager.LoadScene("VisualisationLibre");
     }
 
+    public void PauseBut()
+    {
+        Pause();
+    }
 }

@@ -53,9 +53,10 @@ public class DestructionBallonV2 : MonoBehaviour
                     AudioClip son = hit.transform.gameObject.GetComponent<AudioSource>().clip;
                     hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(son, 0.5f);
                     hit.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(sonBallon, 0.7f);
-                    // On désactive son mesh renderer pour ne plus pouvoir interagir avec. On est obligé de faire ça pour pouvoir garder l'audio qui est joué juste au-dessus
-                    // Un autre script s'occupe de détruire définitivement l'objet.
+                    // On désactive son mesh renderer pour ne plus pouvoir le voir et son collider pour ne plus interargir avec.
+                    // On est obligé de faire ça pour pouvoir garder l'audio qui est joué juste au-dessus un autre script s'occupe de détruire définitivement l'objet.
                     hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                    hit.transform.gameObject.GetComponent<SphereCollider>().enabled = false;
                     // On sauvegarde les données liées à la destruction du ballon
                     savedate(hit);
                     // On différencie les cas d'un ballon rouge ou doré pour le score
