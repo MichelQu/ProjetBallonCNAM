@@ -1,5 +1,0 @@
-Date de création des ballons dans le jeu, leurs coordonnées et spécificités :
-#2.996462%rouge%(-0.5626, 1.0000, -8.5422)%
-#6.093587%rouge%(9.3747, 1.0000, 3.1931)%
-#8.72743%rouge%(-3.5941, 1.0000, 5.9338)%
-#11.60293%rouge%(6.1073, 1.0000, 5.9560)%
