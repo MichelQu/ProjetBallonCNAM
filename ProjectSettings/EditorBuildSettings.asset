@@ -38,7 +38,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Developpeur/VisualisationDev.unity
     guid: 708fab8bcedee4acaa11b3f7ceaf14a8
-  - enabled: 1
-    path: Assets/Scenes/Developpeur/VisualisationLibreDev.unity
-    guid: 63a0a3d1ac4ac4dbf92ce8daf7887cf9
   m_configObjects: {}

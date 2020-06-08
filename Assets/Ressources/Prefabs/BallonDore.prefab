@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2952945538105820686}
   m_Layer: 0
   m_Name: BallonDore
-  m_TagString: Ballon
+  m_TagString: BallonTest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96b69e70682d46b0be7d9a0f70bdbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  norme: 0
 --- !u!82 &2952945538105820686
 AudioSource:
   m_ObjectHideFlags: 0

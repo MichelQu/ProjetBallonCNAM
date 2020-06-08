@@ -24,7 +24,7 @@ public class CreationBallon : MonoBehaviour
 
         // On crée une date random comme seuil pour l'apparition des ballons
         seuilBR = 3.0f + Random.Range(-0.5f, 0.5f);
-        seuilBD = 15.0f + Random.Range(-2.5f, 2.5f);
+        seuilBD = 3.0f + Random.Range(-0.5f, 0.5f);
 
         // Inialisation des Data liées à la création des ballons
         string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
@@ -65,26 +65,26 @@ public class CreationBallon : MonoBehaviour
             }
 
             // Si le temps incrémenté atteint le seuil alors on crée un nouveau ballon2
-            //if (tempsEcoule2 >= seuilBD)
-            //{
-            //    // On crée un module et un angle aléatoire pour le positionnement du ballon
-            //    float module = 7.5f + Random.Range(-2.5f, 2.5f);
-            //    float angle = Random.Range(-Mathf.PI, Mathf.PI);
+            if (tempsEcoule2 >= seuilBD)
+            {
+                // On crée un module et un angle aléatoire pour le positionnement du ballon
+                float module = 3.0f + Random.Range(-0.5f, 0.5f);
+                float angle = Random.Range(-Mathf.PI, Mathf.PI);
 
-            //    float x = module * Mathf.Cos(angle);
-            //    float z = module * Mathf.Sin(angle);
+                float x = module * Mathf.Cos(angle);
+                float z = module * Mathf.Sin(angle);
 
-            //    // On ajoute le ballon au coordonnée créé
-            //    Vector3 coord = new Vector3(x, 0, z);
-            //    Instantiate(ballon2, coord, Quaternion.identity);
+                // On ajoute le ballon au coordonnée créé
+                Vector3 coord = new Vector3(x, 0, z);
+                Instantiate(ballon2, coord, Quaternion.identity);
 
-            //    // On réinitialise le temps écoulé et on crée une nouvelle date pour l'apparition du prochain ballon
-            //    tempsEcoule2 = 0f;
-            //    seuilBD = 15.0f + Random.Range(-2.5f, 2.5f);
+                // On réinitialise le temps écoulé et on crée une nouvelle date pour l'apparition du prochain ballon
+                tempsEcoule2 = 0f;
+                seuilBD = 3.0f + Random.Range(-0.5f, 0.5f);
 
-            //    // On sauvegarde les data liées à la création ballon doré
-            //    Save("or", coord);
-            //}
+                // On sauvegarde les data liées à la création ballon doré
+                Save("or", coord);
+            }
         }
 
 

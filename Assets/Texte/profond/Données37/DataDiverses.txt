@@ -1,0 +1,16 @@
+Quelques données variées sur l'expérience : 
+- Nombre de ballons détruits : 5 ballons
+- Durée totale de l'expérience : 23.48233s
+- Durée moyenne d'explosion des ballons : 4.696466s
+- Erreur de précision moyenne dans la destruction des ballons : 0.1473407
+- Distance angulaire parcourue par ballon : 436.4916°
+
+Informations diverses sur la destruction des ballons : 
+- Temps destruction Ballon 1 : 6.48008s (+ 6.48008s)
+       Précision de la visée : 0.1841019
+- Temps destruction Ballon 2 : 11.25565s (+ 4.775566s)
+       Précision de la visée : 0.2494235
+- Temps destruction Ballon 3 : 13.15106s (+ 1.895417s)
+       Précision de la visée : 0.1764022
+- Temps destruction Ballon 4 : 20.57134s (+ 7.420281s)
+       Précision de la visée : 0.09877487

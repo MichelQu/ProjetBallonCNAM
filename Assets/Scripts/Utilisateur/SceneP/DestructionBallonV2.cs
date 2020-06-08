@@ -12,7 +12,7 @@ public class DestructionBallonV2 : MonoBehaviour
     private int score = 0;
     public int ballons = 0;
     // Varibales pour la sélection du ballon (temporisation)
-    private float tempo = 0;
+    private float tempo = 0f;
     public float tempoVar = 1f;
     // La liste pour les erreurs de précision
     public List<Vector3> ListErrorMoyenne = new List<Vector3>();
@@ -64,11 +64,6 @@ public class DestructionBallonV2 : MonoBehaviour
                     {
                         ballons += 1;
                         score += 1;
-                    }
-                    if (hit.transform.gameObject.name == "BallonDore(Clone)")
-                    {
-                        ballons += 1;
-                        score += 3;
                     }
                     // On actualise les UI pour le score
                     zoneText1.text = "Score : " + score;
