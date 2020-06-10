@@ -1,0 +1,45 @@
+Quelques données variées sur l'expérience : 
+- Nombre de ballons détruits : 5 ballons
+- Durée totale de l'expérience : 16.30425s
+- Durée moyenne d'explosion des ballons : 3.260849s
+- Erreur de précision moyenne dans la destruction des ballons : 0.1844907
+- Distance angulaire parcourue par ballon : 233.4668°
+
+Scores d'exploration spatiale : 
+- Score d'exploration spatiale lié à l'acuité visuelle : 0.09876543
+- Score d'exploration spatiale lié à la vision de lecture : 2.858025
+- Score d'exploration spatiale lié à la vision de reconnaissance de symbole : 9.848765
+
+
+Informations diverses sur la destruction des ballons : 
+- Temps destruction Ballon 1 : 6.651484s (+ 6.651484s)
+       Précision de la visée : 0.1623964
+- Temps destruction Ballon 2 : 9.763272s (+ 3.111788s)
+       Précision de la visée : 0.2398611
+- Temps destruction Ballon 3 : 11.1431s (+ 1.379831s)
+       Précision de la visée : 0.09528178
+- Temps destruction Ballon 4 : 13.83023s (+ 2.687126s)
+       Précision de la visée : 0.3385535
+- Nombre de ballons détruits : 5 ballons
+- Durée totale de l'expérience : 18.54819s
+- Durée moyenne d'explosion des ballons : 3.709637s
+- Erreur de précision moyenne dans la destruction des ballons : 0.1844907
+- Distance angulaire parcourue par ballon : 235.5432°
+
+Scores d'exploration spatiale : 
+- Score d'exploration spatiale lié à l'acuité visuelle : 0.1111111
+- Score d'exploration spatiale lié à la vision de lecture : 2.83642
+- Score d'exploration spatiale lié à la vision de reconnaissance de symbole : 10.22222
+
+
+Informations diverses sur la destruction des ballons : 
+- Temps destruction Ballon 1 : 6.651484s (+ 6.651484s)
+       Précision de la visée : 0.1623964
+- Temps destruction Ballon 2 : 9.763272s (+ 3.111788s)
+       Précision de la visée : 0.2398611
+- Temps destruction Ballon 3 : 11.1431s (+ 1.379831s)
+       Précision de la visée : 0.09528178
+- Temps destruction Ballon 4 : 13.83023s (+ 2.687126s)
+       Précision de la visée : 0.3385535
+- Temps destruction Ballon 5 : 16.63758s (+ 2.807351s)
+       Précision de la visée : 0.08636083

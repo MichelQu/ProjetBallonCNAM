@@ -78,15 +78,9 @@ public class ScriptLog : MonoBehaviour
             // On note le temps dans un liste
             listTemps.Add(time);
         }
-
-        //if (nbrBallons == PlayerPrefs.GetInt("Ballons"))
-        //{
-        //    SauvegardeDonnee(time, angle);
-        //    Debug.Log("Sauvegarde");
-        //}
     }
 
-    public void SauvegardeDonnee(float timer, float angleD)
+    public void SauvegardeDonnee(float timer, float angleD, List<float> listScore)
     {
         string path = Application.dataPath + "/Texte/dataDiverses.txt";
         // Information sur l'expérience réalisée
@@ -104,7 +98,14 @@ public class ScriptLog : MonoBehaviour
         }
         ErreurMoy = ErreurMoy / PlayerPrefs.GetInt("Ballons");
         File.AppendAllText(path, "- Erreur de précision moyenne dans la destruction des ballons : " + ErreurMoy + System.Environment.NewLine);
-        File.AppendAllText(path, "- Distance angulaire parcourue par ballon : " + angleD / PlayerPrefs.GetInt("Ballons") + "°" + System.Environment.NewLine);
+        File.AppendAllText(path, "- Distance angulaire parcourue par ballon : " + angleD / PlayerPrefs.GetInt("Ballons") + "°" + System.Environment.NewLine + System.Environment.NewLine);
+
+        File.AppendAllText(path, "Scores d'exploration spatiale : " + System.Environment.NewLine);
+        File.AppendAllText(path, "- Score d'exploration spatiale lié à l'acuité visuelle (1,5°) : " + listScore[0] + "% de la zone utile." + System.Environment.NewLine);
+        File.AppendAllText(path, "- Score d'exploration spatiale lié à la vision de lecture (10°): " + listScore[1] + "% de la zone utile." + System.Environment.NewLine);
+        File.AppendAllText(path, "- Score d'exploration spatiale lié à la vision de reconnaissance de symbole (20°) : " + listScore[2] + "% de la zone utile." + System.Environment.NewLine + System.Environment.NewLine);
+        listScore.Clear();
+
         File.AppendAllText(path, System.Environment.NewLine + "Informations diverses sur la destruction des ballons : " + System.Environment.NewLine);
 
         int i = 1;

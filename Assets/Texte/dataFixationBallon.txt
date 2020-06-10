@@ -13,3 +13,4 @@ Liste des temporisations sur les ballons dorés :
 0.5759696
 0.5516033
 0.8227679
+0.2342643

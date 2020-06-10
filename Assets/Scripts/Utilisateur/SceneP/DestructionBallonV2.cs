@@ -5,6 +5,10 @@ using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+// Script qui sert à détruire les ballons qu'on doit détruire après qu'on l'ai fixé un certain temps (déterminé par la variable tempo)
+// Puis on sauvegarde, les données de destruction des ballons dans un fichier texte externe.
+
 public class DestructionBallonV2 : MonoBehaviour
 {
     Camera cam;
@@ -21,6 +25,8 @@ public class DestructionBallonV2 : MonoBehaviour
     public Text zoneText2; // Objectif
     // Le clip audio en plus
     public AudioClip sonBallon;
+    // Pour les test
+    private bool test = true;
 
     void Start()
     {
@@ -28,7 +34,6 @@ public class DestructionBallonV2 : MonoBehaviour
         cam = GetComponent<Camera>();
         zoneText1.text = "Score : " + score;
         zoneText2.text = "Ballons détruits : " + ballons;
-
         // Initialisation du fichier qui va regrouper la sauvegarde des ballons détruits
         string path = Application.dataPath + "/Texte/dataBallonDestruction.txt";
         File.WriteAllText(path, "Liste regroupant le temps, le nom et la position du ballon détruit" + System.Environment.NewLine);
@@ -39,7 +44,6 @@ public class DestructionBallonV2 : MonoBehaviour
     {
         // On crée un laser qui part du milieu de l'écran et qui va tirer un laser tout droit
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         // Si le rayon détecte un objet
@@ -59,18 +63,13 @@ public class DestructionBallonV2 : MonoBehaviour
                     hit.transform.gameObject.GetComponent<SphereCollider>().enabled = false;
                     // On sauvegarde les données liées à la destruction du ballon
                     savedate(hit);
-                    // On différencie les cas d'un ballon rouge ou doré pour le score
-                    if (hit.transform.gameObject.name == "BallonRouge(Clone)")
-                    {
-                        ballons += 1;
-                        score += 1;
-                    }
+                    ballons += 1;
+                    score += 1;
                     // On actualise les UI pour le score
                     zoneText1.text = "Score : " + score;
                     zoneText2.text = "Ballons détruits : " + ballons;
-                    // On réinitialise la tempo
+                    // On réinitialise le temps de temporisation
                     tempo = 0f;
-
                     // On calcule l'erreur par rapport au centre 
                     float norme = Vector3.Distance(hit.transform.position, transform.position);
                     Vector3 vise = ((transform.forward * norme) + transform.position);
@@ -100,13 +99,24 @@ public class DestructionBallonV2 : MonoBehaviour
 
         // Test permettant de voir si l'objectif du niveau est atteint
         // Si oui, on change de scène
-        if (PlayerPrefs.GetInt("Ballons") == ballons)
+        if (PlayerPrefs.GetInt("Ballons") == ballons && test)
         {
-            SceneManager.LoadScene("Transition");
+            // On récupère les informations des autres scripts 
             float time = GetComponent<Initialisation>().temps;
             float angle = GetComponent<ScriptLog>().angle;
-            this.GetComponent<ScriptLog>().SauvegardeDonnee(time,angle);
-            Debug.Log("SauvergardeDestruc");
+            // On calcul les scores d'exploration ici
+            this.GetComponent<ExplorationSpatiale>().DestructionFin(); // On détruit les ballons qui restent pour éviter des interférences
+            this.GetComponent<CreationBallon>().enabled = false; // On désactive la création des ballons
+            this.GetComponent<ExplorationSpatiale>().LoadDataVisualisationES(); // On charge les données de visualisation
+            // On récupère les scores
+            List<float> listScore = this.GetComponent<ExplorationSpatiale>().Scores();
+            // On note tout dans un fichier texte
+            this.GetComponent<ScriptLog>().SauvegardeDonnee(time, angle, listScore);
+            // On clear les listes nouvellement crées après utilisation
+            listScore.Clear();
+            // On change de scène
+            test = false;
+            SceneManager.LoadScene("Transition");
         }
     }
 
