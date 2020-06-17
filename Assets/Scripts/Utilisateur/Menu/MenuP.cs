@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 // Création de l'interface du menu Principale du jeu
 
@@ -9,12 +10,13 @@ public class MenuP : MonoBehaviour
 {
     public void PlayBut()
     {
+        // Pour aller vers la scène pour choisir les niveaux
         SceneManager.LoadScene("Niveaux");
-        // Debug.Log("Play");
     }
 
     public void QuitBut()
     {
+        // Pour quitter l'application
         Application.Quit();
     }
 
@@ -22,11 +24,11 @@ public class MenuP : MonoBehaviour
     {
         // On reset le numéro de sauvegarde
         PlayerPrefs.SetInt("NuméroSave",0);
-        // Debug.Log("Ça reset !");
     }
 
     public void DvpBut()
     {
-        SceneManager.LoadScene("VisualisationLibre");
+        // On va vers la scène de sélection
+        SceneManager.LoadScene("Selection");
     }
 }

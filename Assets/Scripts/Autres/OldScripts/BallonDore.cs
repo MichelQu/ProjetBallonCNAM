@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+// Un script permettant de réaliser des tests donc inutile par la suite de l'apllication
+
 public class BallonDore : MonoBehaviour
 {
+    // Déclaration des variables
     Camera cam;
     private float tempo = 0f;
-    private string tagTempo;
-    private bool save;      
+    private bool save;
+    string path;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +19,7 @@ public class BallonDore : MonoBehaviour
         // On initialise les données 
         cam = GetComponent<Camera>();
         // Initialisation du fichier qui va regrouper la sauvegarde des ballons détruits
-        // string path = Application.dataPath + "/Texte/dataFixationBallon.txt";
+        path = Application.persistentDataPath + Path.DirectorySeparatorChar + "dataFixationBallon.txt";
         // File.WriteAllText(path, "Liste des temporisations sur les ballons dorés :" + System.Environment.NewLine);
     }
 
@@ -61,15 +64,14 @@ public class BallonDore : MonoBehaviour
 
     void SaveTemporisation(float temporisation)
     {
-        string path = Application.dataPath + "/Texte/dataFixationBallon.txt"; // Le lieu de sauvegarde
-
+        // On note les informations utiles 
         string[] content =
         {
             temporisation.ToString()
         };
-
-        string saveString = string.Join("%", content) + System.Environment.NewLine; // On joint les différents éléments de content avec le saveString pour créer un unique string
-
-        File.AppendAllText(path, saveString); // on l'ajoute au fichier lié au path
+        // On assemble les données dans un unique string
+        string saveString = string.Join("%", content) + System.Environment.NewLine;
+        // On l'ajoute au fichier lié au path
+        File.AppendAllText(path, saveString);
     }
 }

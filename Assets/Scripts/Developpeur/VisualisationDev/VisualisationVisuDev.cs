@@ -6,6 +6,7 @@ using System.Globalization;
 
 public class VisualisationVisuDev : MonoBehaviour
 {
+    // On instancie les variables 
     public List<Vector3> ListPosVisu;
     LineRenderer Line;
 
@@ -28,7 +29,7 @@ public class VisualisationVisuDev : MonoBehaviour
         ListPosVisu.Clear();
 
         // Le chemin associé aux datas de visualisation
-        string path = Application.dataPath + "/Texte/profond/Données" + PlayerPrefs.GetInt("NumDos") + "/dataVisualisationCamera.txt";
+        string path = Application.persistentDataPath + Path.DirectorySeparatorChar + "Données" + PlayerPrefs.GetInt("NumDos") + "/DataVisualisationCamera.txt";
 
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
@@ -78,15 +79,12 @@ public class VisualisationVisuDev : MonoBehaviour
     {
         // On définit le nbr de points
         Trait.positionCount = ListPosVisu.Count;
-
         // On crée les couleurs
         Color c1 = Color.green;
         Color c2 = Color.blue;
-
         // On définit les couleurs des traits
         Trait.material = new Material(Shader.Find("Sprites/Default"));
         Trait.SetColors(c1, c2);
-
         // On définit les positions
         for (int i = 0; i < ListPosVisu.Count; i++)
         {

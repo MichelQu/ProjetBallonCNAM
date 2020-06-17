@@ -14,13 +14,12 @@ public class EnregistrementDev : MonoBehaviour
     public GameObject ballon2;
 
     // Les listes des objets 
-    private List<Vector3> ListBallonR;
-    private List<Vector3> ListBallonD;
-    private List<float> ListTempsR;
-    private List<float> ListTempsD;
-
-    private List<float> ListTempsVisu;
-    private List<Vector3> ListPosVisu;
+    List<Vector3> ListBallonR;
+    List<Vector3> ListBallonD;
+    List<float> ListTempsR;
+    List<float> ListTempsD;
+    List<float> ListTempsVisu;
+    List<Vector3> ListPosVisu;
 
     // Line Renderer
     LineRenderer Trait;
@@ -29,13 +28,18 @@ public class EnregistrementDev : MonoBehaviour
     private int nbrR;
     private int nbrD;
     private int nbrVisu;
+    string path1,path2;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
+        // On définit la variable qui mettra fin à l'enregistrement
         PlayerPrefs.DeleteKey("FinEnregistrement");
         PlayerPrefs.SetInt("FinEnregistrement", 0);
+        // Le chemin associé au placement des datas
+        path1 = Application.persistentDataPath + Path.DirectorySeparatorChar + "Données" + PlayerPrefs.GetInt("NumDos") + "/DataBallonCreation.txt";
+        path2 = Application.persistentDataPath + Path.DirectorySeparatorChar + "Données" + PlayerPrefs.GetInt("NumDos") + "/DataVisualisationCamera.txt";
 
         // On initialise les variables pour le tableau
         nbrR = 0;
@@ -103,11 +107,9 @@ public class EnregistrementDev : MonoBehaviour
         ListBallonD.Clear();
         ListTempsR.Clear();
         ListTempsD.Clear();
-        // Le chemin associé au placement des datas
-        string path = Application.dataPath + "/Texte/profond/Données" + PlayerPrefs.GetInt("NumDos") + "/DataBallonCreation.txt";
 
         // On récupère le fichier texte
-        string readText = File.ReadAllText(path);
+        string readText = File.ReadAllText(path1);
         // On le transforme un peu pour pouvoir l'utiliser plus tard
         readText = readText.Replace("Date de création des ballons dans le jeu, leurs coordonnées et spécificités :", "");
         readText = readText.Replace("(", "");
@@ -147,11 +149,8 @@ public class EnregistrementDev : MonoBehaviour
         ListTempsVisu.Clear();
         ListPosVisu.Clear();
 
-        // Le chemin associé aux datas de visualisation
-        string path = Application.dataPath + "/Texte/profond/Données" + PlayerPrefs.GetInt("NumDos") + "/DataVisualisationCamera.txt";
-
         // On récupère le fichier texte
-        string readText = File.ReadAllText(path);
+        string readText = File.ReadAllText(path2);
 
         // On le transforme un peu pour pouvoir l'utiliser plus tard
         readText = readText.Replace("Visualisation de la direction de la Caméra : " + System.Environment.NewLine, "");

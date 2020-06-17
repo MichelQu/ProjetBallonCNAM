@@ -11,19 +11,23 @@ using System.Globalization;
 
 public class InitialisationDev : MonoBehaviour
 {
+    // On récupère les variables voulues
     public Text objectif;
     public Text Timer;
     public float temps;
-    private float tempsInt;
-
-    public string[] textArray;
+    float tempsInt;
+    string path;
+    // On instance les listes qui seront utilisés dans la suite
+    string[] textArray;
 
     // Start is called before the first frame update
     void Start()
     {
         // On prend en premier
         SaveManagerDev.si.Clear(false);
-
+        // Le chemin associé au placement des datas
+        path = Application.persistentDataPath + Path.DirectorySeparatorChar + "Données" + PlayerPrefs.GetInt("NumDos") + "/DataDiverses.txt";
+        // On modifie les variables dès le début
         temps = 0f;
         int nbrBallons = AvoirBallon();
         PlayerPrefs.SetInt("ObjectifsDev", nbrBallons);
@@ -39,22 +43,10 @@ public class InitialisationDev : MonoBehaviour
             tempsInt = Mathf.RoundToInt(temps);
             Timer.text = tempsInt + "s";
         }
-        if (SceneManager.GetActiveScene().name == "VisualisationLibreDev")
-        {
-            if (PlayerPrefs.GetInt("VisualisationLibre") == 0)
-            {
-                temps += Time.deltaTime;
-                tempsInt = Mathf.RoundToInt(temps);
-                Timer.text = tempsInt + "s";
-            }
-        }
     }
 
     int AvoirBallon()
     {
-        // string[] textArray;
-        // Le chemin associé au placement des datas
-        string path = Application.dataPath + "/Texte/profond/Données" + PlayerPrefs.GetInt("NumDos") + "/DataDiverses.txt";
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
         // On le mets dans un liste de String grâce au séparateur (%) qu'on a mis dans le fichier txt

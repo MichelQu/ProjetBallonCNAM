@@ -17,12 +17,14 @@ public class MenuChangementVisuL : MonoBehaviour
     private void Start()
     {
         PlayerPrefs.SetInt("VisualisationLibre",0);
+        // On met le jeu en route
         Resume();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Pour mettre le jeu en pause ou en route avec la touche escape de l'ordinateur.
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
@@ -38,50 +40,62 @@ public class MenuChangementVisuL : MonoBehaviour
 
     void Resume()
     {
+        // On désactive le curseur
         Cursor.visible = false;
+        // On active ou désactive les canvas voulus
         pauseMenuUI.SetActive(false);
         resumeMenuUI.SetActive(true);
+        // On met en route le temps pour la physique
         Time.timeScale = 1f;
         isPaused = false;
     }
 
     void Pause()
     {
+        // On active le curseur
         Cursor.visible = true;
+        // On active ou désactive les canvas voulus
         pauseMenuUI.SetActive(true);
         resumeMenuUI.SetActive(false);
+        // On désactive le temps pour la physique
         Time.timeScale = 0f;
         isPaused = true;
     }
 
     public void RetryBut()
     {
+        // Pour relancer la scène de visualisation Libre depuis le début
         PlayerPrefs.SetInt("VisualisationLibre", 0);
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene("VisualisationLibre");
     }
 
     public void ResumeBut()
     {
+        // Pour remettre la scène en jeu
         Resume();
     }
 
     public void QuitBut()
     {
+        // Pour quitter l'application
         Application.Quit();
     }
 
     public void RetourBut()
     {
+        // Pour revenir vers la scène d'enregistrement
         SceneManager.LoadScene("Enregistrement");
     }
 
     public void MenuBut()
     {
+        // Pour lancer la scène Menu
         SceneManager.LoadScene("Menu");
     }
 
     public void PauseBut()
     {
+        // Pour mettre la scène en Pause
         Pause();
     }
 }

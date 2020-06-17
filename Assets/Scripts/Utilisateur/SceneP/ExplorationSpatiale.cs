@@ -8,22 +8,19 @@ using System.Globalization;
 
 public class ExplorationSpatiale : MonoBehaviour
 {
-
-    private int nbrBallon;
-    private List<float> ListTempsVisu;
+    // La liste des positions 
     private List<Vector3> ListPosVisu;
-
+    // Les listes de GameObjects
     public GameObject[] listGO;
     private GameObject[] listGO1;
     private GameObject[] listGO2;
-
+    // La place du totem (la sphere)
     public GameObject totem;
     // private GameObject container;
     private GameObject container2;
 
     private void Start()
     {
-        ListTempsVisu = new List<float>();
         ListPosVisu = new List<Vector3>();
     }
 
@@ -48,7 +45,8 @@ public class ExplorationSpatiale : MonoBehaviour
         // On définit les listes voulues
         List<float> listScore = new List<float>();
         // On lit les données de visualisation
-        LoadDataVisualisationES();
+        // LoadDataVisualisationES();
+        ListPosVisu = this.GetComponent<ScriptLog>().listVisualisation;
         // On ajoute les scores dans la liste qui sera retournée
         listScore.Add(ScoreAcuite());
         listScore.Add(ScoreLecture());
@@ -158,60 +156,5 @@ public class ExplorationSpatiale : MonoBehaviour
         // On réinitialise et retourne le score
         Destroy(container2);
         return score;
-    }
-
-    public void LoadDataVisualisationES()
-    {
-        // Initialisation des variables
-        string[] textArray;
-        ListTempsVisu.Clear();
-        ListPosVisu.Clear();
-
-        // Le chemin associé aux datas de visualisation
-        string path = Application.dataPath + "/Texte/dataVisualisationCamera.txt";
-
-        // On récupère le fichier texte
-        string readText = File.ReadAllText(path);
-
-        // On le transforme un peu pour pouvoir l'utiliser plus tard
-        readText = readText.Replace("Visualisation de la direction de la Caméra : " + System.Environment.NewLine, "");
-        readText = readText.Replace("(", "");
-        readText = readText.Replace(")", "");
-        readText = readText.Replace(", ", "%");
-        readText = readText.Replace("#", "");
-        readText = readText.Replace(System.Environment.NewLine, "");
-
-        // On le mets dans un liste de String grâce au séparateur (%) qu'on a mis dans le fichier txt
-        textArray = readText.Split(new[] { "%" }, System.StringSplitOptions.None);
-
-        for (int i = 0; i < (textArray.Length / 4); i++)
-        {
-            // On ajoute la position de la visualisation
-            Vector3 pos = new Vector3(float.Parse(textArray[4 * i + 1], CultureInfo.InvariantCulture), float.Parse(textArray[4 * i + 2], CultureInfo.InvariantCulture), float.Parse(textArray[4 * i + 3], CultureInfo.InvariantCulture));
-
-            if (i > 0)
-            {
-                // Si la caméra ne bouge pas trop, pas besoin d'ajouter de points pour dessiner
-                Vector3 posComparaison = ListPosVisu[ListPosVisu.Count - 1];
-                if (Mathf.Abs(posComparaison.x - pos.x) > 0.01f)
-                {
-                    if (Mathf.Abs(posComparaison.y - pos.y) > 0.01f)
-                    {
-                        if (Mathf.Abs(posComparaison.z - pos.z) > 0.01f)
-                        {
-                            // Les points ne sont pas identiques donc on ajoute
-                            ListPosVisu.Add(pos);
-                            ListTempsVisu.Add(float.Parse(textArray[4 * i], CultureInfo.InvariantCulture));
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // On ajoute la première position et le premier temps ici
-                ListTempsVisu.Add(float.Parse(textArray[4 * i], CultureInfo.InvariantCulture));
-                ListPosVisu.Add(pos);
-            }
-        }
     }
 }

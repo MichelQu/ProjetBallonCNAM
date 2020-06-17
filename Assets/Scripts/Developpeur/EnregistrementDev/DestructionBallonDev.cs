@@ -11,25 +11,28 @@ using System.Globalization;
 
 public class DestructionBallonDev : MonoBehaviour
 {
+    // On charge les variables 
     Camera cam;
     int score = 0;
     int ballons= 0;
     int tampon = 0;
-
+    // On récupère les zones de texte
     public Text textScore;
     public Text textBallon;
-
-    List<float> ListTemps = new List<float>();
-    List<Vector3> ListPos = new List<Vector3>();
+    // On instancie les listes
+    List<float> ListTemps;
+    List<Vector3> ListPos;
 
     void Start()
     {
+        // On instancie les variables
+        ListTemps = new List<float>();
+        ListPos = new List<Vector3>();
         // Recherche de la caméra
         cam = GetComponent<Camera>();
         // Initialisation des UI
         textScore.text = "Score : " + score;
         textBallon.text = "Ballons détruits : " + ballons;
-
         // Récupération des informations du fichier texte
         LoadDestructionBallon();
     }
@@ -63,24 +66,10 @@ public class DestructionBallonDev : MonoBehaviour
                 PlayerPrefs.SetInt("FinEnregistrement", 1);
             }
         }
-
-        // Si le score est au-dessus de l'objectif alors on arrête le chrono dans la visualisation libre
-        if(SceneManager.GetActiveScene().buildIndex == 6)
-        {
-            if (score >= PlayerPrefs.GetInt("ObjectifsDev"))
-            {
-                PlayerPrefs.SetInt("VisualisationLibre", 1);
-            }
-        }
-
     }
 
     void Destruction(GameObject[] listGO)
     {
-        // On identifie le ballon qui va être détruit avec sa coordonnée Z
-        // TODO et le nom peut être dans un plus large cas
-        // TODO Différentiation des cas si ballon rouge ou ballon dorée
-
         // Pour tous les ballons dans la listGO
         foreach (GameObject item in listGO)
         {
@@ -95,20 +84,9 @@ public class DestructionBallonDev : MonoBehaviour
                 cible.transform.gameObject.GetComponent<AudioSource>().PlayOneShot(son, 0.5f);
                 // On le fait disparaitre
                 cible.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
-
                 // On incrémente le score en fonction du type de ballon
-                if (cible.name == "BallonRouge(Clone)")
-                {
-                    score += 1;
-                    ballons += 1;
-                }
-
-                if (cible.name == "BallonDore(Clone)")
-                {
-                    ballons += 1;
-                    score += 3;
-                }
-
+                score += 1;
+                ballons += 1;
                 // Actualisation des variables UI
                 textScore.text = "Score : " + score;
                 textBallon.text = "Ballons détruits : " + ballons;
@@ -123,11 +101,9 @@ public class DestructionBallonDev : MonoBehaviour
         string[] textArray;
         ListTemps.Clear();
         // Le chemi où l'on récupère les données des ballons détruits
-        string path = Application.dataPath + "/Texte/profond/Données" + PlayerPrefs.GetInt("NumDos") + "/DataBallonDestruction.txt";
-
+        string path = Application.persistentDataPath + Path.DirectorySeparatorChar + "Données" + PlayerPrefs.GetInt("NumDos") + "/DataBallonDestruction.txt";
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
-
         // On le traite un peu pour extraire les informations utiles
         readText = readText.Replace("Liste regroupant le temps, le nom et la position du ballon détruit" + System.Environment.NewLine, "");
         readText = readText.Replace("BallonRouge(Clone)%", "");
@@ -137,7 +113,6 @@ public class DestructionBallonDev : MonoBehaviour
         readText = readText.Replace(", ", "%");
         readText = readText.Replace(")", "%");
         readText = readText.Replace(System.Environment.NewLine, "");
-
         // On le mets dans la liste suivante grâce aux séparateurs ('%')
         textArray = readText.Split(new[] { "%" }, System.StringSplitOptions.None);
 

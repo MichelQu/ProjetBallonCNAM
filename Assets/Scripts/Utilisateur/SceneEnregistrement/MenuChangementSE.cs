@@ -10,6 +10,7 @@ using System.IO;
 
 public class MenuChangementSE : MonoBehaviour
 {
+    // Déclaration des variables
     public bool isPaused = false;
 
     public GameObject pauseMenuUI;
@@ -17,12 +18,14 @@ public class MenuChangementSE : MonoBehaviour
 
     private void Start()
     {
+        // On commence par mettre la scène en route
         Resume();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Pour mettre en pause ou en jeu, la scène en cours avec la touche escape
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
@@ -44,52 +47,64 @@ public class MenuChangementSE : MonoBehaviour
 
     void Resume()
     {
-        Cursor.visible = true;
+        // On réactive le curseur
+        Cursor.visible = false;
+        // On active ou déactive les canvas voulus
         pauseMenuUI.SetActive(false);
         resumeMenuUI.SetActive(true);
+        // On active le temps pour la physique
         Time.timeScale = 1f;
+        // On change la variable pour les contrôles avec touches
         isPaused = false;
     }
 
     void Pause()
     {
+        // On réactive le curseur
         Cursor.visible = true;
+        // On active ou déactive les canvas voulus
         pauseMenuUI.SetActive(true);
         resumeMenuUI.SetActive(false);
+        // On active le temps pour la physique
         Time.timeScale = 0f;
+        // On change la variable pour les contrôles avec touches
         isPaused = true;
     }
 
 
     public void RetryBut()
     {
-        SceneManager.LoadScene(4);
-        // Debug.Log("Retry");
+        // On relance la scène d'enregistrement
+        SceneManager.LoadScene("Enregistrement");
     }
 
     public void MenuBut()
     {
+        // On remet dans le menu
         SceneManager.LoadScene("Menu");
-        // Debug.Log("Chargement menu");
     }
 
     public void RetourBut()
     {
+        // Bouton pour retourner dans la scène de transition
         SceneManager.LoadScene("Transition");
     }
 
     public void VisualisationBut()
     {
+        // Bouton pour aller dans la scène de visualisation
         SceneManager.LoadScene("Visualisation");
     }
 
     public void VisualisationBut2()
     {
+        // Bouton pour aller dans la scène de visualisation libre
         SceneManager.LoadScene("VisualisationLibre");
     }
 
     public void PauseBut()
     {
+        // Bouton pour mettre le jeu en pause
         Pause();
     }
 }

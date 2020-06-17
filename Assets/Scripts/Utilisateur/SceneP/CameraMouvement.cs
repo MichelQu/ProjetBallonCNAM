@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class CameraMouvement : MonoBehaviour
 {
-	private float rotationX;
+    // Déclaration des variabless
+    private float rotationX;
 	private float rotationY;
 	public float sensitivity = 2f;
 

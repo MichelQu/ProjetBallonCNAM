@@ -6,14 +6,18 @@ using System.Globalization;
 
 public class VisualisationVisu : MonoBehaviour
 {
+    // Déclaration des variables
     public List<Vector3> ListPosVisu;
     LineRenderer Line;
+    string path;
 
     // Start is called before the first frame update
     void Start()
     {
         // On initialise
         ListPosVisu = new List<Vector3>();
+        // Le chemin associé aux datas de visualisation
+        path = Application.persistentDataPath + Path.DirectorySeparatorChar + "dataVisualisationCamera.txt";
         // On charge les données de visualisation
         LoadDataVisualisation();
         // On dessine les traits
@@ -26,9 +30,6 @@ public class VisualisationVisu : MonoBehaviour
         // Initialisation des variables
         string[] textArray;
         ListPosVisu.Clear();
-
-        // Le chemin associé aux datas de visualisation
-        string path = Application.dataPath + "/Texte/dataVisualisationCamera.txt";
 
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);

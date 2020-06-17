@@ -11,31 +11,38 @@ using UnityEngine.SceneManagement;
 
 public class DestructionBallonV2 : MonoBehaviour
 {
+    // Déclaration des variables
     Camera cam;
     // Quelques variables du scripts
-    private int score = 0;
-    public int ballons = 0;
+    public int score;
+    public int ballons;
     // Varibales pour la sélection du ballon (temporisation)
     private float tempo = 0f;
     public float tempoVar = 1f;
     // La liste pour les erreurs de précision
     public List<Vector3> ListErrorMoyenne = new List<Vector3>();
+    public List<float> ListTemps = new List<float>();
     // Les zones de textes 
     public Text zoneText1; // Score
     public Text zoneText2; // Objectif
     // Le clip audio en plus
     public AudioClip sonBallon;
-    // Pour les test
-    private bool test = true;
+    private string path; // Le lieu de sauvegarde
+    // Pour les tests
+    private bool test;
 
     void Start()
     {
+        // On instancie les variables
+        score = 0;
+        ballons = 0;
+        test = true;
         // On initialise les données 
-        cam = GetComponent<Camera>();
+        cam = Camera.main;
         zoneText1.text = "Score : " + score;
         zoneText2.text = "Ballons détruits : " + ballons;
         // Initialisation du fichier qui va regrouper la sauvegarde des ballons détruits
-        string path = Application.dataPath + "/Texte/dataBallonDestruction.txt";
+        path = Application.persistentDataPath + Path.DirectorySeparatorChar + "dataBallonDestruction.txt"; // Le lieu de sauvegarde
         File.WriteAllText(path, "Liste regroupant le temps, le nom et la position du ballon détruit" + System.Environment.NewLine);
     }
 
@@ -51,7 +58,7 @@ public class DestructionBallonV2 : MonoBehaviour
             if (hit.transform.tag == "Ballon") // Si on vise un ballon
             {
                 // Si on a fixé le ballon pendant le temps indiqué
-                if (tempo > 0.7f)
+                if (tempo > 0.6f)
                 {
                     // On lance l'audio de destruction d'un ballon
                     AudioClip son = hit.transform.gameObject.GetComponent<AudioSource>().clip;
@@ -61,8 +68,7 @@ public class DestructionBallonV2 : MonoBehaviour
                     // On est obligé de faire ça pour pouvoir garder l'audio qui est joué juste au-dessus un autre script s'occupe de détruire définitivement l'objet.
                     hit.transform.gameObject.GetComponent<MeshRenderer>().enabled = false;
                     hit.transform.gameObject.GetComponent<SphereCollider>().enabled = false;
-                    // On sauvegarde les données liées à la destruction du ballon
-                    savedate(hit);
+                    // On incrémente les ballons
                     ballons += 1;
                     score += 1;
                     // On actualise les UI pour le score
@@ -70,12 +76,17 @@ public class DestructionBallonV2 : MonoBehaviour
                     zoneText2.text = "Ballons détruits : " + ballons;
                     // On réinitialise le temps de temporisation
                     tempo = 0f;
+                    // On sauvegarde les données liées à la destruction du ballon
+                    savedate(hit);
                     // On calcule l'erreur par rapport au centre 
                     float norme = Vector3.Distance(hit.transform.position, transform.position);
                     Vector3 vise = ((transform.forward * norme) + transform.position);
                     Vector3 posBal = hit.transform.position;
                     Vector3 error = vise - posBal;
                     ListErrorMoyenne.Add(error);
+                    // On ajoute le temps de destruction
+                    float time = GetComponent<Initialisation>().temps;
+                    ListTemps.Add(time);
                 }
                 // Sinon, ie si le temps de tempo n'est pas arrivé à la limite.
                 else
@@ -101,21 +112,13 @@ public class DestructionBallonV2 : MonoBehaviour
         // Si oui, on change de scène
         if (PlayerPrefs.GetInt("Ballons") == ballons && test)
         {
-            // On récupère les informations des autres scripts 
-            float time = GetComponent<Initialisation>().temps;
-            float angle = GetComponent<ScriptLog>().angle;
-            // On calcul les scores d'exploration ici
-            this.GetComponent<ExplorationSpatiale>().DestructionFin(); // On détruit les ballons qui restent pour éviter des interférences
-            this.GetComponent<CreationBallon>().enabled = false; // On désactive la création des ballons
-            this.GetComponent<ExplorationSpatiale>().LoadDataVisualisationES(); // On charge les données de visualisation
-            // On récupère les scores
-            List<float> listScore = this.GetComponent<ExplorationSpatiale>().Scores();
-            // On note tout dans un fichier texte
-            this.GetComponent<ScriptLog>().SauvegardeDonnee(time, angle, listScore);
-            // On clear les listes nouvellement crées après utilisation
-            listScore.Clear();
-            // On change de scène
             test = false;
+            // On calcul les scores d'exploration ici
+            cam.GetComponent<ExplorationSpatiale>().DestructionFin(); // On détruit les ballons qui restent pour éviter des interférences
+            cam.GetComponent<CreationBallon>().enabled = false; // On désactive la création des ballons
+            // On note tout dans un fichier texte
+            cam.GetComponent<ScriptLog>().SauvegardeDonnee();
+            // On change de scène
             SceneManager.LoadScene("Transition");
         }
     }
@@ -123,21 +126,20 @@ public class DestructionBallonV2 : MonoBehaviour
     // Fonction qui permet de sauvegarder les données liées aux ballons détruits 
     void savedate(RaycastHit hit)
     {
-        string path = Application.dataPath + "/Texte/dataBallonDestruction.txt"; // Le lieu de sauvegarde
-
+        // On récupère ou traite différentes informations reçues
         string temps = "#" + cam.GetComponent<Initialisation>().temps.ToString("G");
         string pos = hit.transform.position.ToString("G");
         string nom = hit.transform.gameObject.name;
-
+        // On les assemble
         string[] content =
         {
             temps,
             nom,
             pos
         };
-
-        string saveString = string.Join("%", content) + System.Environment.NewLine; // On joint les différents éléments de content avec le saveString pour créer un unique string
-
-        File.AppendAllText(path, saveString); // on l'ajoute au fichier lié au path
+        // On joint les différents éléments de content avec le saveString pour créer un unique string
+        string saveString = string.Join("%", content) + System.Environment.NewLine;
+        // On l'ajoute au fichier lié au path
+        File.AppendAllText(path, saveString);
     }
 }

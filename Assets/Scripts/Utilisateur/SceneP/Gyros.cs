@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Gyros : MonoBehaviour
 {
-
+    // Déclaration des variables
     private bool gyroEnabled;
     private Gyroscope gyro;
 

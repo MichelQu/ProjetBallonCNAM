@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class InitialisationSE : MonoBehaviour
 {
+    // Déclaration des variables
     public Text objectif;
     public Text Timer;
     public float temps;
@@ -17,6 +18,7 @@ public class InitialisationSE : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // On définit les varibles ici
         temps = 0f;
         objectif.text = "Objectif : " + PlayerPrefs.GetInt("Ballons") + " Ballons";
         Timer.text = temps + "s";
@@ -24,18 +26,24 @@ public class InitialisationSE : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 4)
+        // Selon les scènes en cours 
+        if (SceneManager.GetActiveScene().name == "Enregistrement")
         {
+            // On incrémente les temps avec le temps dans l'application
             temps += Time.deltaTime;
             tempsInt = Mathf.RoundToInt(temps);
+            // On affiche le temps dans l'interface voulue
             Timer.text = tempsInt + "s";
         }
-        if (SceneManager.GetActiveScene().buildIndex == 6)
+        if (SceneManager.GetActiveScene().name == "VisualisationLibre")
         {
+            // Si ce n'est pas la fin de l'enregistrement
             if (PlayerPrefs.GetInt("VisualisationLibre") == 0)
             {
+                // On incrémente les temps avec le temps dans l'application
                 temps += Time.deltaTime;
                 tempsInt = Mathf.RoundToInt(temps);
+                // On affiche le temps dans l'interface voulue
                 Timer.text = tempsInt + "s";
             }
         }

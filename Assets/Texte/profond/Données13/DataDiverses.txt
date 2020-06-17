@@ -1,0 +1,22 @@
+Quelques données variées sur l'expérience : 
+- Nombre de ballons détruits : 5 ballons
+- Durée totale de l'expérience : 18.97535s
+- Durée moyenne d'explosion des ballons : 3.795071s
+- Erreur de précision moyenne dans la destruction des ballons : 0.1268975
+- Distance angulaire parcourue par ballon : 301.0233°
+
+Scores d'exploration spatiale : 
+- Score d'exploration spatiale lié à l'acuité visuelle (1,5°) : 0.6154514% de la zone utile.
+- Score d'exploration spatiale lié à la vision de lecture (10°): 15.7908% de la zone utile.
+- Score d'exploration spatiale lié à la vision de reconnaissance de symbole (20°) : 40.36458% de la zone utile.
+
+
+Informations diverses sur la destruction des ballons : 
+- Temps destruction Ballon 1 : 6.509037s (+ 6.509037s)
+       Précision de la visée : 0.0307157
+- Temps destruction Ballon 2 : 9.275599s (+ 2.766561s)
+       Précision de la visée : 0.06173674
+- Temps destruction Ballon 3 : 11.70033s (+ 2.424726s)
+       Précision de la visée : 0.1682456
+- Temps destruction Ballon 4 : 14.69144s (+ 2.991112s)
+       Précision de la visée : 0.1925126

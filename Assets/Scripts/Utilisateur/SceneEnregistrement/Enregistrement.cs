@@ -104,7 +104,7 @@ public class Enregistrement : MonoBehaviour
         ListTempsR.Clear();
         ListTempsD.Clear();
         // Le chemin associé au placement des datas
-        string path = Application.dataPath + "/Texte/dataBallonCreation.txt";
+        string path = Application.persistentDataPath + Path.DirectorySeparatorChar + "dataBallonCreation.txt";
 
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
@@ -148,7 +148,7 @@ public class Enregistrement : MonoBehaviour
         ListPosVisu.Clear();
 
         // Le chemin associé aux datas de visualisation
-        string path = Application.dataPath + "/Texte/dataVisualisationCamera.txt";
+        string path = Application.persistentDataPath + Path.DirectorySeparatorChar + "dataVisualisationCamera.txt";
 
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
