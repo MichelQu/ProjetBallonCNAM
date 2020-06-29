@@ -8,6 +8,7 @@ public class VisualisationVisu : MonoBehaviour
 {
     // Déclaration des variables
     public List<Vector3> ListPosVisu;
+    public List<Vector3> ListPosExplo;
     LineRenderer Line;
     string path;
 
@@ -16,6 +17,7 @@ public class VisualisationVisu : MonoBehaviour
     {
         // On initialise
         ListPosVisu = new List<Vector3>();
+        ListPosExplo = new List<Vector3>();
         // Le chemin associé aux datas de visualisation
         path = Application.persistentDataPath + Path.DirectorySeparatorChar + "dataVisualisationCamera.txt";
         // On charge les données de visualisation
@@ -30,6 +32,7 @@ public class VisualisationVisu : MonoBehaviour
         // Initialisation des variables
         string[] textArray;
         ListPosVisu.Clear();
+        ListPosExplo.Clear();
 
         // On récupère le fichier texte
         string readText = File.ReadAllText(path);
@@ -53,6 +56,8 @@ public class VisualisationVisu : MonoBehaviour
             Vector3 pos = new Vector3(float.Parse(textArray[4 * i + 1], CultureInfo.InvariantCulture), float.Parse(textArray[4 * i + 2], CultureInfo.InvariantCulture), float.Parse(textArray[4 * i + 3], CultureInfo.InvariantCulture));
             if (i > 0)
             {
+                // Pour rentrer toutes les coordonnées de visualisation
+                ListPosExplo.Add(pos);
                 // Si la caméra ne bouge pas trop, pas besoin de dessiner
                 Vector3 posComparaison = ListPosVisu[ListPosVisu.Count - 1];
                 if (Mathf.Abs(posComparaison.x - pos.x) > 0.01f)
@@ -69,6 +74,7 @@ public class VisualisationVisu : MonoBehaviour
             else
             {
                 // On ajoute la première position ici
+                ListPosExplo.Add(pos);
                 ListPosVisu.Add(pos);
             }
         }
